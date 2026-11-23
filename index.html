@@ -2,7 +2,8 @@
 <html lang="ms" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#06090e">
   <title>Farid Tasim — Software & Web Developer</title>
   <meta name="description" content="Portfolio rasmi Farid Tasim. Pembangun perisian dan laman web praktikal dari Sabah, Malaysia.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%232563eb%22/><text x=%2250%%22 y=%2255%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2252%22 font-family=%22sans-serif%22 font-weight=%22800%22 fill=%22white%22>FT</text></svg>">
@@ -50,10 +51,18 @@
 
   <style>
     /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #06090e; }
     ::-webkit-scrollbar-thumb { background: #182030; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+    /* Mobile Touch & Tap Optimization */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    button, a {
+      touch-action: manipulation;
+    }
 
     /* Subtle Glassmorphism Card */
     .pro-card {
@@ -63,19 +72,21 @@
       border-radius: 1rem;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .pro-card:hover {
-      border-color: rgba(59, 130, 246, 0.4);
-      box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15);
-      transform: translateY(-2px);
+    @media (hover: hover) and (pointer: fine) {
+      .pro-card:hover {
+        border-color: rgba(59, 130, 246, 0.4);
+        box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15);
+        transform: translateY(-2px);
+      }
     }
 
     /* Ambient Background Glow */
     .ambient-glow {
       position: absolute;
-      width: 600px;
-      height: 600px;
+      width: min(600px, 90vw);
+      height: min(600px, 90vw);
       background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(37, 99, 235, 0.03) 50%, transparent 70%);
-      top: -150px;
+      top: -100px;
       left: 50%;
       transform: translateX(-50%);
       pointer-events: none;
@@ -84,33 +95,33 @@
   </style>
 </head>
 
-<body class="bg-surface-950 text-slate-200 font-sans antialiased selection:bg-brand-600 selection:text-white relative min-h-screen">
+<body class="bg-surface-950 text-slate-200 font-sans antialiased selection:bg-brand-600 selection:text-white relative min-h-screen overflow-x-hidden">
 
   <!-- Ambient Backdrop Light -->
   <div class="ambient-glow"></div>
 
-  <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3.5 rounded-xl bg-surface-900 border border-brand-500/40 shadow-2xl text-xs font-medium text-white">
-    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+  <!-- Toast Notification (Responsive: centered on mobile, docked on desktop) -->
+  <div id="toast" class="fixed bottom-5 inset-x-4 sm:inset-x-auto sm:right-6 sm:bottom-6 z-50 transform translate-y-28 opacity-0 transition-all duration-300 pointer-events-none flex items-center justify-center sm:justify-start gap-3 px-5 py-3.5 rounded-xl bg-surface-900 border border-brand-500/40 shadow-2xl text-xs font-medium text-white max-w-sm sm:max-w-none mx-auto sm:mx-0">
+    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
     <span id="toast-text">E-mel disalin ke papan keratan!</span>
   </div>
 
   <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-40 bg-surface-950/80 backdrop-blur-md border-b border-surface-border">
-    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+  <header class="sticky top-0 z-40 bg-surface-950/90 backdrop-blur-md border-b border-surface-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       
       <!-- Brand Logo -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-brand-600 to-blue-400 flex items-center justify-center text-white font-display font-bold text-sm shadow-md shadow-brand-600/20 group-hover:scale-105 transition">
+      <a href="#" class="flex items-center gap-2.5 sm:gap-3 group">
+        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-tr from-brand-600 to-blue-400 flex items-center justify-center text-white font-display font-bold text-xs sm:text-sm shadow-md shadow-brand-600/20 group-hover:scale-105 transition">
           FT
         </div>
         <div>
-          <span class="font-display font-bold text-white text-base tracking-tight block leading-none">Farid Tasim</span>
-          <span class="text-[11px] text-slate-400 font-mono">faridtasim.dpdns.org</span>
+          <span class="font-display font-bold text-white text-sm sm:text-base tracking-tight block leading-none">Farid Tasim</span>
+          <span class="text-[10px] sm:text-[11px] text-slate-400 font-mono">faridtasim.dpdns.org</span>
         </div>
       </a>
 
-      <!-- Navigation Links -->
+      <!-- Desktop Navigation Links -->
       <nav class="hidden md:flex items-center gap-7 text-xs font-medium text-slate-400">
         <a href="#about" class="hover:text-white transition" data-i18n="nav_about">Tentang</a>
         <a href="#projects" class="hover:text-white transition" data-i18n="nav_projects">Projek</a>
@@ -118,34 +129,69 @@
         <a href="#contact" class="hover:text-white transition" data-i18n="nav_contact">Hubungi</a>
       </nav>
 
-      <!-- Language Switcher & Socials -->
-      <div class="flex items-center gap-3">
+      <!-- Language Switcher & Mobile Menu Trigger -->
+      <div class="flex items-center gap-2 sm:gap-3">
         <!-- BM / ENG Switcher -->
         <div class="flex items-center bg-surface-900 p-0.5 rounded-lg border border-surface-border font-mono text-xs">
-          <button onclick="setLanguage('bm')" id="btn-bm" class="px-2.5 py-1 rounded-md text-[11px] font-semibold transition bg-brand-600 text-white shadow-sm">
+          <button onclick="setLanguage('bm')" id="btn-bm" class="px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-semibold transition bg-brand-600 text-white shadow-sm">
             BM
           </button>
-          <button onclick="setLanguage('en')" id="btn-en" class="px-2.5 py-1 rounded-md text-[11px] font-semibold transition text-slate-400 hover:text-white">
+          <button onclick="setLanguage('en')" id="btn-en" class="px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-semibold transition text-slate-400 hover:text-white">
             ENG
           </button>
         </div>
 
-        <a href="https://github.com/Faridexholic92" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-900 border border-surface-border hover:border-slate-600 text-slate-300 text-xs font-mono transition">
+        <!-- GitHub Link (Desktop & Tablet) -->
+        <a href="https://github.com/Faridexholic92" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-900 border border-surface-border hover:border-slate-600 text-slate-300 text-xs font-mono transition">
           <i class="fab fa-github"></i>
-          <span class="hidden sm:inline">Faridexholic92</span>
+          <span>Faridexholic92</span>
         </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button onclick="toggleMobileMenu()" id="mobile-menu-btn" class="md:hidden w-9 h-9 rounded-lg bg-surface-900 border border-surface-border flex items-center justify-center text-slate-300 hover:text-white transition active:scale-95" aria-label="Buka Menu">
+          <i class="fas fa-bars text-sm" id="mobile-menu-icon"></i>
+        </button>
       </div>
 
     </div>
+
+    <!-- Mobile Dropdown Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-surface-border bg-surface-950/95 backdrop-blur-xl px-4 py-4 space-y-3 transition-all">
+      <nav class="flex flex-col space-y-1 text-sm font-medium text-slate-300">
+        <a href="#about" onclick="closeMobileMenu()" class="px-3 py-2.5 rounded-lg hover:bg-surface-900 hover:text-white transition flex items-center justify-between" data-i18n="nav_about">
+          <span>Tentang</span>
+          <i class="fas fa-chevron-right text-xs text-slate-500"></i>
+        </a>
+        <a href="#projects" onclick="closeMobileMenu()" class="px-3 py-2.5 rounded-lg hover:bg-surface-900 hover:text-white transition flex items-center justify-between" data-i18n="nav_projects">
+          <span>Projek</span>
+          <i class="fas fa-chevron-right text-xs text-slate-500"></i>
+        </a>
+        <a href="#skills" onclick="closeMobileMenu()" class="px-3 py-2.5 rounded-lg hover:bg-surface-900 hover:text-white transition flex items-center justify-between" data-i18n="nav_skills">
+          <span>Kemahiran</span>
+          <i class="fas fa-chevron-right text-xs text-slate-500"></i>
+        </a>
+        <a href="#contact" onclick="closeMobileMenu()" class="px-3 py-2.5 rounded-lg hover:bg-surface-900 hover:text-white transition flex items-center justify-between" data-i18n="nav_contact">
+          <span>Hubungi</span>
+          <i class="fas fa-chevron-right text-xs text-slate-500"></i>
+        </a>
+      </nav>
+      <div class="pt-2 border-t border-surface-border flex items-center justify-between text-xs font-mono text-slate-400">
+        <a href="https://github.com/Faridexholic92" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-white transition">
+          <i class="fab fa-github"></i>
+          <span>Faridexholic92</span>
+        </a>
+        <span class="text-brand-400" id="live-time-mobile">MYT --:--:--</span>
+      </div>
+    </div>
   </header>
 
-  <main class="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-20 space-y-24">
+  <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-16 md:py-20 space-y-16 sm:space-y-24">
     
     <!-- Hero Section -->
-    <section class="space-y-8">
+    <section class="space-y-6 sm:space-y-8">
       
       <!-- Status Badge -->
-      <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-surface-900 border border-surface-border text-xs text-slate-300 shadow-sm">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-surface-900 border border-surface-border text-[11px] sm:text-xs text-slate-300 shadow-sm">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -154,57 +200,59 @@
       </div>
 
       <!-- Main Headline -->
-      <div class="space-y-4 max-w-3xl">
-        <h1 class="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold text-white tracking-tight leading-[1.15]">
+      <div class="space-y-3 sm:space-y-4 max-w-3xl">
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.15]">
           <span data-i18n="hero_title_1">Membina portal web, sistem data, dan</span> <br class="hidden sm:inline">
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300" data-i18n="hero_title_2">aplikasi digital yang praktikal.</span>
         </h1>
-        <p class="text-base sm:text-lg text-slate-400 font-normal leading-relaxed max-w-2xl" data-i18n="hero_desc">
+        <p class="text-sm sm:text-lg text-slate-400 font-normal leading-relaxed max-w-2xl" data-i18n="hero_desc">
           Hai, saya <strong>Farid Tasim</strong>. Seorang pembangun web dari Sabah, Malaysia yang komited membina penyelesaian perisian yang stabil, pantas, dan memudahkan urusan pengguna.
         </p>
       </div>
 
-      <!-- Hero Actions -->
-      <div class="flex flex-wrap items-center gap-3 pt-2">
-        <a href="#projects" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm rounded-lg transition shadow-lg shadow-brand-600/20 flex items-center gap-2">
+      <!-- Hero Actions (Optimized for thumb tapping on mobile) -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+        <a href="#projects" class="w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm rounded-xl sm:rounded-lg transition shadow-lg shadow-brand-600/20 flex items-center justify-center gap-2 text-center active:scale-[0.98]">
           <span data-i18n="btn_explore">Lihat Projek Terpilih</span>
           <i class="fas fa-arrow-down text-xs"></i>
         </a>
-        <a href="#contact" class="px-5 py-2.5 bg-surface-900 hover:bg-surface-850 border border-surface-border hover:border-slate-600 text-slate-200 font-medium text-sm rounded-lg transition">
-          <span data-i18n="btn_contact">Hubungi Saya</span>
-        </a>
-        <button onclick="copyEmail()" class="px-4 py-2.5 bg-surface-900 hover:bg-surface-850 border border-surface-border hover:border-slate-600 text-slate-300 text-sm rounded-lg transition flex items-center gap-2" title="Salin E-mel">
-          <i class="fas fa-copy text-xs text-brand-500"></i>
-          <span data-i18n="btn_copy_email">Salin E-mel</span>
-        </button>
+        <div class="grid grid-cols-2 sm:flex sm:items-center gap-2.5 sm:gap-3">
+          <a href="#contact" class="px-4 py-3 sm:py-2.5 bg-surface-900 hover:bg-surface-850 border border-surface-border hover:border-slate-600 text-slate-200 font-medium text-xs sm:text-sm rounded-xl sm:rounded-lg transition text-center flex items-center justify-center active:scale-[0.98]">
+            <span data-i18n="btn_contact">Hubungi Saya</span>
+          </a>
+          <button onclick="copyEmail()" class="px-4 py-3 sm:py-2.5 bg-surface-900 hover:bg-surface-850 border border-surface-border hover:border-slate-600 text-slate-300 text-xs sm:text-sm rounded-xl sm:rounded-lg transition flex items-center justify-center gap-2 text-center active:scale-[0.98]" title="Salin E-mel">
+            <i class="fas fa-copy text-xs text-brand-500"></i>
+            <span data-i18n="btn_copy_email">Salin E-mel</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Quick Metrics Strip -->
-      <div class="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-surface-border">
-        <div class="p-4 rounded-xl bg-surface-900/40 border border-surface-border">
-          <span class="text-xs text-slate-500 font-mono block mb-1" data-i18n="stat_location_label">LOKASI</span>
-          <span class="text-sm font-semibold text-white">Sabah, Malaysia 🇲🇾</span>
+      <!-- Quick Metrics Strip (2x2 on mobile, 4-col on desktop) -->
+      <div class="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 border-t border-surface-border">
+        <div class="p-3 sm:p-4 rounded-xl bg-surface-900/40 border border-surface-border">
+          <span class="text-[10px] sm:text-xs text-slate-500 font-mono block mb-0.5 sm:mb-1 uppercase" data-i18n="stat_location_label">LOKASI</span>
+          <span class="text-xs sm:text-sm font-semibold text-white truncate block">Sabah, Malaysia 🇲🇾</span>
         </div>
-        <div class="p-4 rounded-xl bg-surface-900/40 border border-surface-border">
-          <span class="text-xs text-slate-500 font-mono block mb-1" data-i18n="stat_focus_label">FOKUS UTAMA</span>
-          <span class="text-sm font-semibold text-white" data-i18n="stat_focus_val">Web & Portal Data</span>
+        <div class="p-3 sm:p-4 rounded-xl bg-surface-900/40 border border-surface-border">
+          <span class="text-[10px] sm:text-xs text-slate-500 font-mono block mb-0.5 sm:mb-1 uppercase" data-i18n="stat_focus_label">FOKUS UTAMA</span>
+          <span class="text-xs sm:text-sm font-semibold text-white truncate block" data-i18n="stat_focus_val">Web & Portal Data</span>
         </div>
-        <div class="p-4 rounded-xl bg-surface-900/40 border border-surface-border">
-          <span class="text-xs text-slate-500 font-mono block mb-1" data-i18n="stat_infra_label">INFRASTRUKTUR</span>
-          <span class="text-sm font-semibold text-white">Edge DNS & SSL</span>
+        <div class="p-3 sm:p-4 rounded-xl bg-surface-900/40 border border-surface-border">
+          <span class="text-[10px] sm:text-xs text-slate-500 font-mono block mb-0.5 sm:mb-1 uppercase" data-i18n="stat_infra_label">INFRASTRUKTUR</span>
+          <span class="text-xs sm:text-sm font-semibold text-white truncate block">Edge DNS & SSL</span>
         </div>
-        <div class="p-4 rounded-xl bg-surface-900/40 border border-surface-border">
-          <span class="text-xs text-slate-500 font-mono block mb-1" data-i18n="stat_time_label">WAKTU SEMASA</span>
-          <span id="live-time" class="text-sm font-semibold text-brand-400 font-mono">MYT --:--:--</span>
+        <div class="p-3 sm:p-4 rounded-xl bg-surface-900/40 border border-surface-border">
+          <span class="text-[10px] sm:text-xs text-slate-500 font-mono block mb-0.5 sm:mb-1 uppercase" data-i18n="stat_time_label">WAKTU SEMASA</span>
+          <span id="live-time" class="text-xs sm:text-sm font-semibold text-brand-400 font-mono truncate block">MYT --:--:--</span>
         </div>
       </div>
 
     </section>
 
     <!-- Selected Projects Section -->
-    <section id="projects" class="space-y-8 scroll-mt-20">
+    <section id="projects" class="space-y-6 sm:space-y-8 scroll-mt-20">
       
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
         <div>
           <span class="text-xs font-mono font-semibold text-brand-500 tracking-wider uppercase block" data-i18n="projects_tag">PORTFOLIO & HASIL KERJA</span>
           <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mt-1" data-i18n="projects_heading">Projek Terpilih</h2>
@@ -214,10 +262,10 @@
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
 
         <!-- Project 1: Seksyen Penawanan Data (Active Live) -->
-        <div class="pro-card p-6 flex flex-col justify-between space-y-6 group">
+        <div class="pro-card p-5 sm:p-6 flex flex-col justify-between space-y-5 sm:space-y-6 group">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">
@@ -230,12 +278,12 @@
             <h3 class="text-lg font-display font-bold text-white group-hover:text-blue-400 transition">
               Seksyen Penawanan Data
             </h3>
-            <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p1_desc">
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="p1_desc">
               Portal rasmi bagi pengurusan, penawanan maklumat data, dan rekod aktiviti organisasi secara tersusun dan berpusat.
             </p>
           </div>
           <div class="pt-4 border-t border-surface-border flex items-center justify-end text-xs">
-            <a href="https://www.myspd.qzz.io/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition shadow-sm">
+            <a href="https://www.myspd.qzz.io/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition shadow-sm active:scale-[0.98]">
               <span data-i18n="btn_visit">Buka Laman</span>
               <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
             </a>
@@ -243,7 +291,7 @@
         </div>
 
         <!-- Project 2: Walimatul Urus — Hafiz & Wana (Active Live) -->
-        <div class="pro-card p-6 flex flex-col justify-between space-y-6 group">
+        <div class="pro-card p-5 sm:p-6 flex flex-col justify-between space-y-5 sm:space-y-6 group">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-medium">
@@ -256,12 +304,12 @@
             <h3 class="text-lg font-display font-bold text-white group-hover:text-amber-400 transition">
               Walimatul Urus — Hafiz & Wana
             </h3>
-            <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p2_desc">
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="p2_desc">
               Laman web jemputan majlis perkahwinan digital yang dilengkapi pengesahan kehadiran (RSVP), panduan lokasi GPS, atur cara, dan ucapan tetamu.
             </p>
           </div>
           <div class="pt-4 border-t border-surface-border flex items-center justify-end text-xs">
-            <a href="https://hafizgotwana.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-medium transition shadow-sm">
+            <a href="https://hafizgotwana.vercel.app/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-medium transition shadow-sm active:scale-[0.98]">
               <span data-i18n="btn_visit">Buka Laman</span>
               <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
             </a>
@@ -269,7 +317,7 @@
         </div>
 
         <!-- Project 3: QuranConnect (Active Live) -->
-        <div class="pro-card p-6 flex flex-col justify-between space-y-6 group">
+        <div class="pro-card p-5 sm:p-6 flex flex-col justify-between space-y-5 sm:space-y-6 group">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
@@ -282,12 +330,12 @@
             <h3 class="text-lg font-display font-bold text-white group-hover:text-emerald-400 transition">
               QuranConnect
             </h3>
-            <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p3_desc">
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="p3_desc">
               Aplikasi Al-Quran digital dalam talian dengan antaramuka kemas dan pantas untuk pembacaan mudah di pelbagai peranti.
             </p>
           </div>
           <div class="pt-4 border-t border-surface-border flex items-center justify-end text-xs">
-            <a href="https://quran-connect-seven.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium transition shadow-sm">
+            <a href="https://quran-connect-seven.vercel.app/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium transition shadow-sm active:scale-[0.98]">
               <span data-i18n="btn_visit">Buka Laman</span>
               <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
             </a>
@@ -295,7 +343,7 @@
         </div>
 
         <!-- Project 4: Sabah Disaster Intelligence Portal (Closed - No Link) -->
-        <div class="pro-card p-6 flex flex-col justify-between space-y-6 opacity-75 hover:opacity-100">
+        <div class="pro-card p-5 sm:p-6 flex flex-col justify-between space-y-5 sm:space-y-6 opacity-75 hover:opacity-100">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 font-medium">
@@ -308,7 +356,7 @@
             <h3 class="text-lg font-display font-bold text-slate-200">
               Sabah Disaster Intelligence
             </h3>
-            <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p4_desc">
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="p4_desc">
               Portal pemantauan pintar bencana negeri Sabah (banjir, amaran cuaca, situasi kecemasan) bagi membantu tindakan awal komuniti.
             </p>
           </div>
@@ -321,7 +369,7 @@
         </div>
 
         <!-- Project 5: LeanTrack (Closed - No Link) -->
-        <div class="pro-card p-6 flex flex-col justify-between space-y-6 opacity-75 hover:opacity-100">
+        <div class="pro-card p-5 sm:p-6 flex flex-col justify-between space-y-5 sm:space-y-6 opacity-75 hover:opacity-100">
           <div class="space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 font-medium">
@@ -334,7 +382,7 @@
             <h3 class="text-lg font-display font-bold text-slate-200">
               LeanTrack
             </h3>
-            <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p5_desc">
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="p5_desc">
               Platform rekod pemakanan dan pengurusan diet untuk pengguna dalam memantau pengambilan kalori serta matlamat kesihatan.
             </p>
           </div>
@@ -351,14 +399,14 @@
     </section>
 
     <!-- About Me Section -->
-    <section id="about" class="space-y-8 scroll-mt-20">
+    <section id="about" class="space-y-6 sm:space-y-8 scroll-mt-20">
       
       <div>
         <span class="text-xs font-mono font-semibold text-brand-500 tracking-wider uppercase block" data-i18n="about_tag">LATAR BELAKANG</span>
         <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mt-1" data-i18n="about_heading">Mengenai Saya</h2>
       </div>
 
-      <div class="pro-card p-6 sm:p-8 space-y-6">
+      <div class="pro-card p-5 sm:p-8 space-y-6">
         
         <div class="text-sm sm:text-base text-slate-300 leading-relaxed space-y-4 font-normal" data-i18n="about_body">
           <p>
@@ -369,14 +417,14 @@
           </p>
         </div>
 
-        <div class="pt-4 border-t border-surface-border grid sm:grid-cols-3 gap-4 text-xs">
+        <div class="pt-4 border-t border-surface-border grid sm:grid-cols-3 gap-3 sm:gap-4 text-xs">
           <div>
             <span class="text-slate-500 font-mono block mb-1 uppercase" data-i18n="about_loc_label">Lokasi</span>
             <span class="text-slate-200 font-medium">Sabah, Malaysia 🇲🇾</span>
           </div>
           <div>
             <span class="text-slate-500 font-mono block mb-1 uppercase" data-i18n="about_email_label">E-mel Rasmi</span>
-            <span class="text-slate-200 font-mono select-all">contact@faridtasim.dpdns.org</span>
+            <span class="text-slate-200 font-mono select-all break-all">contact@faridtasim.dpdns.org</span>
           </div>
           <div>
             <span class="text-slate-500 font-mono block mb-1 uppercase" data-i18n="about_status_label">Status Kolaborasi</span>
@@ -389,16 +437,16 @@
     </section>
 
     <!-- Technical Skills & Stack Section -->
-    <section id="skills" class="space-y-8 scroll-mt-20">
+    <section id="skills" class="space-y-6 sm:space-y-8 scroll-mt-20">
       
       <div>
         <span class="text-xs font-mono font-semibold text-brand-500 tracking-wider uppercase block" data-i18n="skills_tag">KEMAHIRAN & TEKNOLOGI</span>
         <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mt-1" data-i18n="skills_heading">Alatan & Fokus Teknikal</h2>
       </div>
 
-      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4">
         
-        <div class="pro-card p-5 space-y-3">
+        <div class="pro-card p-4 sm:p-5 space-y-2.5 sm:space-y-3">
           <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm">
             <i class="fas fa-code"></i>
           </div>
@@ -408,7 +456,7 @@
           </p>
         </div>
 
-        <div class="pro-card p-5 space-y-3">
+        <div class="pro-card p-4 sm:p-5 space-y-2.5 sm:space-y-3">
           <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-sm">
             <i class="fas fa-server"></i>
           </div>
@@ -418,7 +466,7 @@
           </p>
         </div>
 
-        <div class="pro-card p-5 space-y-3">
+        <div class="pro-card p-4 sm:p-5 space-y-2.5 sm:space-y-3">
           <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-sm">
             <i class="fas fa-network-wired"></i>
           </div>
@@ -433,30 +481,31 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="space-y-8 scroll-mt-20">
+    <section id="contact" class="space-y-6 sm:space-y-8 scroll-mt-20">
       
-      <div class="pro-card p-8 sm:p-12 text-center space-y-6 relative overflow-hidden">
+      <div class="pro-card p-6 sm:p-12 text-center space-y-6 relative overflow-hidden">
         
-        <div class="max-w-xl mx-auto space-y-3">
+        <div class="max-w-xl mx-auto space-y-2.5 sm:space-y-3">
           <span class="text-xs font-mono font-semibold text-brand-500 tracking-wider uppercase" data-i18n="contact_tag">HUBUNGI SAYA</span>
           <h2 class="text-2xl sm:text-4xl font-display font-bold text-white" data-i18n="contact_heading">
             Ada idea projek atau ingin bekerjasama?
           </h2>
-          <p class="text-slate-400 text-sm leading-relaxed" data-i18n="contact_desc">
+          <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="contact_desc">
             Saya sentiasa terbuka untuk membincangkan peluang pembangunan web, sistem maklumat, atau sebarang kolaborasi bermanfaat.
           </p>
         </div>
 
-        <div class="inline-flex flex-col sm:flex-row items-center gap-3 p-2 rounded-xl bg-surface-900 border border-surface-border">
-          <div class="flex items-center gap-2.5 px-4 py-2 text-slate-200 text-sm font-mono">
-            <i class="fas fa-envelope text-brand-500"></i>
+        <!-- Mobile Optimized Email Box -->
+        <div class="w-full max-w-lg mx-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-2.5 sm:p-2 rounded-xl bg-surface-900 border border-surface-border">
+          <div class="flex items-center justify-center sm:justify-start gap-2.5 px-3 py-2 text-slate-200 text-xs sm:text-sm font-mono break-all text-center sm:text-left">
+            <i class="fas fa-envelope text-brand-500 shrink-0"></i>
             <span class="select-all">contact@faridtasim.dpdns.org</span>
           </div>
-          <div class="flex items-center gap-2 w-full sm:w-auto">
-            <button onclick="copyEmail()" class="flex-1 sm:flex-initial px-4 py-2 bg-surface-850 hover:bg-surface-800 text-slate-200 border border-surface-border rounded-lg text-xs font-medium transition" data-i18n="btn_copy">
+          <div class="grid grid-cols-2 sm:flex sm:items-center gap-2 w-full sm:w-auto">
+            <button onclick="copyEmail()" class="px-4 py-2.5 bg-surface-850 hover:bg-surface-800 text-slate-200 border border-surface-border rounded-lg text-xs font-medium transition text-center active:scale-[0.98]" data-i18n="btn_copy">
               Salin E-mel
             </button>
-            <a href="mailto:contact@faridtasim.dpdns.org" class="flex-1 sm:flex-initial px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-medium transition shadow-md shadow-brand-600/20" data-i18n="btn_send">
+            <a href="mailto:contact@faridtasim.dpdns.org" class="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-medium transition shadow-md shadow-brand-600/20 text-center active:scale-[0.98]" data-i18n="btn_send">
               Hantar Mesej
             </a>
           </div>
@@ -469,12 +518,41 @@
   </main>
 
   <!-- Clean Professional Footer -->
-  <footer class="border-t border-surface-border py-8 px-6 text-center text-xs text-slate-500 font-mono">
+  <footer class="border-t border-surface-border py-8 px-4 sm:px-6 text-center text-xs text-slate-500 font-mono">
     <p class="max-w-5xl mx-auto">© 2026 Farid Tasim. <span data-i18n="footer_rights">Hak cipta terpelihara.</span></p>
   </footer>
 
-  <!-- Scripts: i18n & Utilities -->
+  <!-- Scripts: i18n, Mobile Menu & Utilities -->
   <script>
+    // Mobile Navigation Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('mobile-menu-icon');
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        icon.className = "fas fa-xmark text-sm";
+      } else {
+        menu.classList.add('hidden');
+        icon.className = "fas fa-bars text-sm";
+      }
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('mobile-menu-icon');
+      menu.classList.add('hidden');
+      icon.className = "fas fa-bars text-sm";
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('mobile-menu');
+      const btn = document.getElementById('mobile-menu-btn');
+      if (!menu.classList.contains('hidden') && !menu.contains(e.target) && !btn.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
     // Bilingual Dictionary (BM / ENG)
     const i18n = {
       bm: {
@@ -528,7 +606,6 @@
         btn_copy: "Salin E-mel",
         btn_send: "Hantar Mesej",
         footer_rights: "Hak cipta terpelihara.",
-        footer_top: "Ke Atas ↑",
         toast: "E-mel disalin ke papan keratan!"
       },
       en: {
@@ -582,7 +659,6 @@
         btn_copy: "Copy Email",
         btn_send: "Send Message",
         footer_rights: "All rights reserved.",
-        footer_top: "Back to Top ↑",
         toast: "Email copied to clipboard!"
       }
     };
@@ -596,11 +672,11 @@
       const btnBm = document.getElementById('btn-bm');
       const btnEn = document.getElementById('btn-en');
       if (lang === 'bm') {
-        btnBm.className = "px-2.5 py-1 rounded-md text-[11px] font-semibold transition bg-brand-600 text-white shadow-sm";
-        btnEn.className = "px-2.5 py-1 rounded-md text-[11px] font-semibold transition text-slate-400 hover:text-white";
+        btnBm.className = "px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-semibold transition bg-brand-600 text-white shadow-sm";
+        btnEn.className = "px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-semibold transition text-slate-400 hover:text-white";
       } else {
-        btnEn.className = "px-2.5 py-1 rounded-md text-[11px] font-semibold transition bg-brand-600 text-white shadow-sm";
-        btnBm.className = "px-2.5 py-1 rounded-md text-[11px] font-semibold transition text-slate-400 hover:text-white";
+        btnEn.className = "px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-semibold transition bg-brand-600 text-white shadow-sm";
+        btnBm.className = "px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-semibold transition text-slate-400 hover:text-white";
       }
 
       document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -615,17 +691,19 @@
       });
     }
 
-    // Live Sabah Clock (MYT Time)
+    // Live Sabah Clock (MYT Time) - Desktop & Mobile
     function updateClock() {
       const el = document.getElementById('live-time');
-      if (!el) return;
+      const elMobile = document.getElementById('live-time-mobile');
       const now = new Date();
       const options = {
         timeZone: 'Asia/Kuala_Lumpur',
         hour: '2-digit', minute: '2-digit', second: '2-digit',
         hour12: true
       };
-      el.textContent = 'MYT ' + now.toLocaleTimeString('en-US', options);
+      const timeStr = 'MYT ' + now.toLocaleTimeString('en-US', options);
+      if (el) el.textContent = timeStr;
+      if (elMobile) elMobile.textContent = timeStr;
     }
     setInterval(updateClock, 1000);
     updateClock();
@@ -638,11 +716,11 @@
         const toastText = document.getElementById('toast-text');
         toastText.textContent = i18n[currentLang].toast;
         
-        toast.classList.remove('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-28', 'opacity-0');
         toast.classList.add('translate-y-0', 'opacity-100');
         setTimeout(() => {
           toast.classList.remove('translate-y-0', 'opacity-100');
-          toast.classList.add('translate-y-24', 'opacity-0');
+          toast.classList.add('translate-y-28', 'opacity-0');
         }, 3000);
       });
     }
