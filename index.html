@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FARID TASIM // GUNDAM HUB — Tactical Mecha Portal</title>
-  <meta name="description" content="Pangkalan Digital & Portfolio Taktikal Farid Tasim. Dibina berteraskan tema Mecha Gundam Hub.">
+  <title>FARID TASIM // GUNDAM PILOT COCKPIT — Tactical Digital Hub</title>
+  <meta name="description" content="Pangkalan Digital & Portfolio Taktikal Farid Tasim. Dibina berteraskan tema Gundam Pilot Cockpit.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 
-  <!-- Google Fonts: Orbitron & JetBrains Mono -->
+  <!-- Fonts: Orbitron (Sci-Fi/Mecha), JetBrains Mono (Telemetry/Code), Plus Jakarta Sans (Readable Prose) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS & FontAwesome -->
+  <!-- Tailwind CSS & FontAwesome Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
@@ -31,11 +31,11 @@
           },
           colors: {
             mecha: {
-              950: '#04060a',
-              900: '#090d16',
-              850: '#0f1726',
-              800: '#162035',
-              border: 'rgba(0, 240, 255, 0.2)',
+              950: '#030712',
+              900: '#060d1a',
+              850: '#0c1527',
+              800: '#14223d',
+              border: 'rgba(0, 240, 255, 0.22)',
             },
             gundam: {
               cyan: '#00f0ff',
@@ -43,21 +43,33 @@
               yellow: '#ffb800',
               blue: '#2563eb',
               green: '#00ff88',
-              orange: '#ff6600'
+              gold: '#ffd700',
+              purple: '#b026ff',
             }
           },
           animation: {
-            'radar-spin': 'radarSpin 4s linear infinite',
-            'eye-pulse': 'eyePulse 2.5s ease-in-out infinite',
+            'radar-spin': 'radarSpin 3.5s linear infinite',
+            'eye-pulse': 'eyePulse 2s ease-in-out infinite',
+            'seed-pulse': 'seedPulse 1.5s ease-in-out infinite',
+            'reticle-rotate': 'reticleRotate 10s linear infinite',
+            'hud-flicker': 'hudFlicker 0.15s ease-in-out 3',
           },
           keyframes: {
             radarSpin: {
               '0%': { transform: 'rotate(0deg)' },
               '100%': { transform: 'rotate(360deg)' }
             },
+            reticleRotate: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
             eyePulse: {
-              '0%, 100%': { filter: 'drop-shadow(0 0 10px #00f0ff) drop-shadow(0 0 20px #00f0ff)' },
-              '50%': { filter: 'drop-shadow(0 0 25px #00f0ff) drop-shadow(0 0 45px #38bdf8)' }
+              '0%, 100%': { filter: 'drop-shadow(0 0 6px #00f0ff) drop-shadow(0 0 16px #00f0ff)', opacity: '0.9' },
+              '50%': { filter: 'drop-shadow(0 0 20px #00f0ff) drop-shadow(0 0 35px #38bdf8)', opacity: '1' }
+            },
+            seedPulse: {
+              '0%, 100%': { filter: 'drop-shadow(0 0 15px #ffd700) drop-shadow(0 0 30px #ff2d55)' },
+              '50%': { filter: 'drop-shadow(0 0 35px #ffd700) drop-shadow(0 0 60px #ff2d55)' }
             }
           }
         }
@@ -68,23 +80,35 @@
   <style>
     /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #04060a; }
-    ::-webkit-scrollbar-thumb { background: #162035; border-radius: 4px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb { background: #14223d; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
 
     /* Tactical HUD Grid Overlay */
     .bg-hud-grid {
-      background-size: 32px 32px;
+      background-size: 36px 36px;
       background-image: 
-        linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+        linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+    }
+
+    /* Subtle CRT Scanline Effect across HUD */
+    .hud-scanlines {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 240, 255, 0.03) 50%,
+        rgba(0, 240, 255, 0.03)
+      );
+      background-size: 100% 4px;
     }
 
     /* Armor Plate Angular Cut */
     .armor-card {
-      background: rgba(9, 13, 22, 0.85);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(0, 240, 255, 0.18);
+      background: rgba(6, 13, 26, 0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 240, 255, 0.2);
       clip-path: polygon(
         0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px,
         100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px)
@@ -92,18 +116,34 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .armor-card:hover {
-      border-color: rgba(0, 240, 255, 0.5);
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+      border-color: rgba(0, 240, 255, 0.6);
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.22);
       transform: translateY(-3px);
+    }
+
+    /* SEED Mode Theme Switcher Overrides */
+    body.seed-active {
+      --seed-glow: #ffd700;
+    }
+    body.seed-active .armor-card {
+      border-color: rgba(255, 215, 0, 0.35);
+    }
+    body.seed-active .armor-card:hover {
+      border-color: rgba(255, 215, 0, 0.8);
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+    }
+    body.seed-active .gundam-eye {
+      fill: #ffd700 !important;
+      filter: drop-shadow(0 0 25px #ffd700) drop-shadow(0 0 45px #ffb800) !important;
     }
 
     /* Corner Accents */
     .bracket-tl {
-      position: absolute; top: -1px; left: -1px; width: 12px; height: 12px;
+      position: absolute; top: -1px; left: -1px; width: 14px; height: 14px;
       border-top: 2px solid #00f0ff; border-left: 2px solid #00f0ff;
     }
     .bracket-br {
-      position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px;
+      position: absolute; bottom: -1px; right: -1px; width: 14px; height: 14px;
       border-bottom: 2px solid #ff2d55; border-right: 2px solid #ff2d55;
     }
 
@@ -112,8 +152,8 @@
       pointer-events: none;
       position: fixed;
       top: 0; left: 0;
-      width: 44px; height: 44px;
-      border: 1px dashed rgba(0, 240, 255, 0.4);
+      width: 48px; height: 48px;
+      border: 1px dashed rgba(0, 240, 255, 0.5);
       border-radius: 50%;
       transform: translate(-50%, -50%);
       transition: width 0.2s, height 0.2s, border-color 0.2s;
@@ -128,18 +168,18 @@
       border-radius: 50%;
       transform: translate(-50%, -50%);
       z-index: 1000;
-      box-shadow: 0 0 8px #ff2d55;
+      box-shadow: 0 0 10px #ff2d55;
     }
 
-    /* Video Player Styling: Scaled up to hide any YouTube overlays or edges */
+    /* Video Player Styling: Perfectly hidden until actively PLAYING, completely eliminating pause icons */
     #video-wrapper {
       position: fixed;
       inset: 0;
       overflow: hidden;
       pointer-events: none;
       z-index: -30;
-      opacity: 0; /* Hidden until video is actively PLAYING, completely eliminating the pause icon! */
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     #gundam-video {
       position: absolute;
@@ -149,89 +189,135 @@
       height: 56.25vw; /* 16:9 ratio */
       min-height: 100vh;
       min-width: 177.77vh;
-      transform: translate(-50%, -50%) scale(1.35); /* Scale up to push any UI controls completely off screen */
+      transform: translate(-50%, -50%) scale(1.45); /* Scale up so controls/overlays are completely outside viewport */
       pointer-events: none;
+    }
+
+    /* Cockpit Framing Side Bezel Accents */
+    .cockpit-bracket-left {
+      position: fixed;
+      top: 25%;
+      left: 8px;
+      width: 6px;
+      height: 50%;
+      border-left: 2px solid rgba(0, 240, 255, 0.35);
+      border-top: 2px solid rgba(0, 240, 255, 0.35);
+      border-bottom: 2px solid rgba(0, 240, 255, 0.35);
+      pointer-events: none;
+      z-index: 30;
+    }
+    .cockpit-bracket-right {
+      position: fixed;
+      top: 25%;
+      right: 8px;
+      width: 6px;
+      height: 50%;
+      border-right: 2px solid rgba(0, 240, 255, 0.35);
+      border-top: 2px solid rgba(0, 240, 255, 0.35);
+      border-bottom: 2px solid rgba(0, 240, 255, 0.35);
+      pointer-events: none;
+      z-index: 30;
     }
   </style>
 </head>
 
 <body class="bg-mecha-950 text-slate-200 font-sans antialiased selection:bg-gundam-cyan selection:text-black relative min-h-screen overflow-x-hidden">
 
-  <!-- Interactive Crosshairs Cursor -->
+  <!-- Interactive Crosshairs Cursor (Desktop only) -->
   <div id="crosshair-hud" class="hidden md:block"></div>
   <div id="crosshair-dot" class="hidden md:block"></div>
 
-  <!-- Background Video: Freedom Gundam (InRXhsZniZg) Seamless Loop (No Pause Symbol) -->
+  <!-- Cockpit Framing Accents -->
+  <div class="cockpit-bracket-left hidden lg:block"></div>
+  <div class="cockpit-bracket-right hidden lg:block"></div>
+
+  <!-- Background Video: Freedom Gundam (InRXhsZniZg) Seamless Loop (NO Pause Symbol Guaranteed) -->
   <div id="video-wrapper">
     <div id="gundam-video"></div>
   </div>
 
-  <!-- HUD Grid & Vignette Overlay -->
+  <!-- HUD Grid, Scanlines & Cockpit Dark Vignette -->
   <div class="fixed inset-0 bg-hud-grid pointer-events-none -z-20"></div>
-  <div class="fixed inset-0 bg-gradient-to-b from-mecha-950/80 via-mecha-950/70 to-mecha-950 pointer-events-none -z-10"></div>
+  <div class="fixed inset-0 hud-scanlines pointer-events-none -z-20 opacity-40"></div>
+  <div class="fixed inset-0 bg-gradient-to-b from-mecha-950/85 via-mecha-950/75 to-mecha-950 pointer-events-none -z-10"></div>
+
+  <!-- SEED Mode Flash Awakening Overlay -->
+  <div id="seed-flash" class="fixed inset-0 bg-gundam-gold/30 pointer-events-none z-50 opacity-0 transition-opacity duration-300"></div>
 
   <!-- Toast Notification -->
   <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3 rounded bg-mecha-900 border border-gundam-cyan shadow-2xl text-xs font-mono text-white">
-    <span class="w-2 h-2 rounded-full bg-gundam-cyan animate-ping"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-gundam-cyan animate-ping"></span>
     <span id="toast-text">DISALIN KE PAPAN KERATAN!</span>
   </div>
 
-  <!-- Top Tactical Status Bar -->
-  <div class="bg-mecha-950/95 border-b border-mecha-border py-1.5 px-6 text-[11px] font-mono text-slate-400 flex items-center justify-between z-50 relative">
+  <!-- Top Tactical Cockpit Status HUD -->
+  <div class="bg-mecha-950/95 border-b border-mecha-border py-2 px-4 sm:px-6 text-[11px] font-mono text-slate-400 flex flex-wrap items-center justify-between gap-3 z-50 relative">
     <div class="flex items-center gap-3">
-      <span class="text-gundam-cyan font-bold tracking-widest">[ GUNDAM HUB // UNIT: FREEDOM-01 ]</span>
-      <span class="hidden sm:inline text-slate-600">|</span>
-      <span class="hidden sm:inline text-slate-400">STATUS: COMBAT READY</span>
+      <span class="text-gundam-cyan font-bold tracking-widest flex items-center gap-1.5">
+        <span class="inline-block w-2 h-2 bg-gundam-cyan rounded-full animate-pulse"></span>
+        [ PILOT: FARID TASIM // CALLSIGN: NAGA-01 ]
+      </span>
+      <span class="hidden md:inline text-slate-700">|</span>
+      <span class="hidden md:inline text-slate-300">UNIT: ZGMF-X10A FREEDOM [FT-CUSTOM]</span>
+      <span class="hidden lg:inline text-slate-700">|</span>
+      <span class="hidden lg:inline text-gundam-green font-semibold">OS: G.U.N.D.A.M. v2.8</span>
     </div>
-    <div class="flex items-center gap-4">
+
+    <div class="flex items-center gap-3 sm:gap-4 ml-auto">
+      <!-- SEED Mode Button -->
+      <button onclick="toggleSeedMode()" id="btn-seed" class="flex items-center gap-1.5 text-gundam-yellow hover:text-white transition px-2.5 py-1 rounded bg-gundam-yellow/10 border border-gundam-yellow/30 text-[10px] font-bold">
+        <i class="fas fa-brain animate-pulse"></i>
+        <span id="seed-status">SEED MODE: OFF</span>
+      </button>
+
       <!-- SFX Sound Button -->
-      <button onclick="toggleAudio()" id="btn-audio" class="flex items-center gap-1.5 text-gundam-yellow hover:text-white transition px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[10px]">
+      <button onclick="toggleAudio()" id="btn-audio" class="flex items-center gap-1.5 text-gundam-cyan hover:text-white transition px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px]">
         <i class="fas fa-volume-high" id="audio-icon"></i>
         <span id="audio-status">SFX: ON</span>
       </button>
 
       <!-- Video Background Toggle Button -->
-      <button onclick="toggleVideo()" id="btn-video" class="flex items-center gap-1.5 text-gundam-cyan hover:text-white transition px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[10px]">
+      <button onclick="toggleVideo()" id="btn-video" class="flex items-center gap-1.5 text-slate-300 hover:text-gundam-cyan transition px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px]">
         <i class="fas fa-film"></i>
         <span id="video-status">VIDEO BG: ON</span>
       </button>
 
-      <span class="text-slate-600">|</span>
-      <span id="live-time" class="text-slate-300">MYT --:--:--</span>
+      <span class="text-slate-700 hidden sm:inline">|</span>
+      <span id="live-time" class="text-gundam-cyan font-mono text-[11px] font-bold">MYT --:--:--</span>
     </div>
   </div>
 
-  <!-- Main Cockpit Header -->
+  <!-- Main Cockpit Header & Navigation -->
   <header class="sticky top-0 z-40 bg-mecha-900/90 backdrop-blur-md border-b border-mecha-border">
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       
-      <!-- Logo -->
-      <a href="#" class="flex items-center gap-3 group" onmouseenter="playBeep()">
-        <div class="relative w-10 h-10 rounded bg-mecha-850 border border-gundam-cyan flex items-center justify-center font-mecha font-black text-gundam-cyan text-sm group-hover:scale-105 transition shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+      <!-- Pilot Brand Logo -->
+      <a href="#" class="flex items-center gap-3.5 group" onmouseenter="playBeep()">
+        <div class="relative w-10 h-10 rounded bg-mecha-850 border border-gundam-cyan flex items-center justify-center font-mecha font-black text-gundam-cyan text-sm group-hover:scale-105 transition shadow-[0_0_20px_rgba(0,240,255,0.4)]">
           <span class="bracket-tl"></span>
           FT
           <span class="bracket-br"></span>
         </div>
         <div>
           <span class="font-mecha font-bold tracking-wider text-white text-base block leading-none">FARID TASIM</span>
-          <span class="text-[10px] font-mono text-gundam-red tracking-widest uppercase">PILOT // GUNDAM HUB</span>
+          <span class="text-[10px] font-mono text-gundam-red tracking-widest uppercase">PILOT // GUNDAM HUB COMMAND</span>
         </div>
       </a>
 
       <!-- Navigation Links -->
       <nav class="hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-wider text-slate-300">
-        <a href="#about" onmouseenter="playBeep()" class="hover:text-gundam-cyan transition flex items-center gap-1">
-          <span class="text-gundam-cyan text-[10px]">//</span> <span data-i18n="nav_about">Tentang</span>
+        <a href="#pilot" onmouseenter="playBeep()" class="hover:text-gundam-cyan transition flex items-center gap-1">
+          <span class="text-gundam-cyan text-[10px]">// 01</span> <span data-i18n="nav_pilot">Profil Pilot</span>
         </a>
         <a href="#projects" onmouseenter="playBeep()" class="hover:text-gundam-cyan transition flex items-center gap-1">
-          <span class="text-gundam-cyan text-[10px]">//</span> <span data-i18n="nav_projects">Projek</span>
+          <span class="text-gundam-cyan text-[10px]">// 02</span> <span data-i18n="nav_projects">Misi Projek</span>
         </a>
         <a href="#contact" onmouseenter="playBeep()" class="hover:text-gundam-cyan transition flex items-center gap-1">
-          <span class="text-gundam-cyan text-[10px]">//</span> <span data-i18n="nav_contact">Hubungi</span>
+          <span class="text-gundam-cyan text-[10px]">// 03</span> <span data-i18n="nav_contact">Transmisi</span>
         </a>
       </nav>
 
-      <!-- Language Switcher & GitHub -->
+      <!-- Language Switcher & GitHub Profile -->
       <div class="flex items-center gap-3 font-mono text-xs">
         <!-- BM / ENG Switcher -->
         <div class="flex items-center bg-mecha-850 p-1 rounded border border-white/10">
@@ -257,7 +343,7 @@
     <section class="py-16 md:py-24 px-6 relative">
       <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
         
-        <!-- Left Column: Tactical Intel -->
+        <!-- Left Column: Tactical Intel & Pilot Intro -->
         <div class="lg:col-span-7 space-y-6">
           <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-mecha-900 border border-gundam-cyan/40 text-xs font-mono text-gundam-cyan">
             <i class="fas fa-crosshairs text-gundam-red animate-pulse"></i>
@@ -266,7 +352,7 @@
 
           <div class="space-y-4">
             <p class="font-mono text-xs tracking-widest text-gundam-yellow uppercase" data-i18n="hero_sub">
-              // PENGKALAN OPERASI DIGITAL
+              // PENGKALAN OPERASI & SISTEM DIGITAL
             </p>
             <h1 class="text-4xl sm:text-6xl font-mecha font-extrabold tracking-tight text-white leading-tight">
               SISTEM DIGITAL & <br>
@@ -279,80 +365,128 @@
             </p>
           </div>
 
+          <!-- Quick Action Buttons -->
           <div class="flex flex-wrap items-center gap-4 pt-2 font-mono text-xs">
-            <a href="#projects" onclick="playLaser()" onmouseenter="playBeep()" class="px-6 py-3 bg-gundam-cyan hover:bg-cyan-300 text-black font-bold tracking-wider rounded transition flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.4)]">
+            <a href="#projects" onclick="playLaser()" onmouseenter="playBeep()" class="px-6 py-3 bg-gundam-cyan hover:bg-cyan-300 text-black font-bold tracking-wider rounded transition flex items-center gap-2 shadow-[0_0_25px_rgba(0,240,255,0.4)]">
               <span data-i18n="btn_explore">TEROKAI PROJEK</span>
               <i class="fas fa-crosshairs text-xs"></i>
             </a>
-            <button onclick="copyEmail()" onmouseenter="playBeep()" class="px-6 py-3 bg-mecha-900 hover:bg-mecha-850 border border-white/20 hover:border-gundam-cyan text-white rounded transition flex items-center gap-2">
+            
+            <button onclick="triggerMultiLock()" onmouseenter="playBeep()" class="px-5 py-3 bg-mecha-900 hover:bg-mecha-850 border border-gundam-yellow/40 hover:border-gundam-yellow text-gundam-yellow rounded transition flex items-center gap-2">
+              <i class="fas fa-bullseye text-gundam-yellow"></i>
+              <span data-i18n="btn_lockon">MULTI-LOCK ON</span>
+            </button>
+
+            <button onclick="copyEmail()" onmouseenter="playBeep()" class="px-5 py-3 bg-mecha-900 hover:bg-mecha-850 border border-white/20 hover:border-gundam-cyan text-white rounded transition flex items-center gap-2">
               <i class="fas fa-copy text-gundam-cyan"></i>
               <span data-i18n="btn_copy_email">SALIN E-MEL</span>
             </button>
           </div>
+
+          <!-- Tactical Telemetry Status Bar -->
+          <div class="pt-4 grid grid-cols-3 gap-3 border-t border-white/10 font-mono text-[11px]">
+            <div class="p-2.5 rounded bg-mecha-900/80 border border-white/10">
+              <span class="text-slate-500 block text-[10px]">VPS ARMOR</span>
+              <span class="text-gundam-cyan font-bold flex items-center gap-1">
+                <i class="fas fa-shield-halved text-[9px]"></i> AKTIF (100%)
+              </span>
+            </div>
+            <div class="p-2.5 rounded bg-mecha-900/80 border border-white/10">
+              <span class="text-slate-500 block text-[10px]">NUCLEAR / GN</span>
+              <span class="text-gundam-green font-bold flex items-center gap-1">
+                <i class="fas fa-bolt text-[9px]"></i> OPTIMUM
+              </span>
+            </div>
+            <div class="p-2.5 rounded bg-mecha-900/80 border border-white/10">
+              <span class="text-slate-500 block text-[10px]">SECTOR BASE</span>
+              <span class="text-slate-200 font-bold">SABAH, MY 🇲🇾</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Right Column: Animated Gundam Robot HUD Display -->
+        <!-- Right Column: Interactive Gundam Pilot HUD & Mecha Display -->
         <div class="lg:col-span-5 relative flex justify-center">
-          <div class="w-full max-w-md armor-card p-6 relative group">
+          <div class="w-full max-w-md armor-card p-6 relative group" id="mecha-display-card">
             <div class="bracket-tl"></div>
             <div class="bracket-br"></div>
 
             <!-- Radar Scanner Top Right -->
-            <div class="absolute top-4 right-4 w-16 h-16 rounded-full border border-gundam-cyan/30 flex items-center justify-center overflow-hidden bg-mecha-950/60">
+            <div class="absolute top-4 right-4 w-16 h-16 rounded-full border border-gundam-cyan/30 flex items-center justify-center overflow-hidden bg-mecha-950/70 shadow-[0_0_15px_rgba(0,240,255,0.15)]">
               <div class="w-full h-[1px] bg-gundam-cyan/30"></div>
               <div class="h-full w-[1px] bg-gundam-cyan/30 absolute"></div>
               <div class="w-full h-full absolute rounded-full border border-gundam-green/20"></div>
-              <!-- Radar Beam -->
+              <!-- Rotating Radar Beam -->
               <div class="w-1/2 h-1/2 absolute top-0 right-0 bg-gradient-to-bl from-gundam-green/40 to-transparent origin-bottom-left animate-radar-spin"></div>
-              <!-- Blip -->
-              <div class="w-1.5 h-1.5 rounded-full bg-gundam-red absolute top-3 left-4 animate-ping"></div>
+              <!-- Radar Blip -->
+              <div class="w-2 h-2 rounded-full bg-gundam-red absolute top-3 left-4 animate-ping"></div>
+              <div class="w-1.5 h-1.5 rounded-full bg-gundam-red absolute top-3 left-4"></div>
             </div>
 
-            <div class="font-mono text-[10px] text-gundam-cyan mb-2 tracking-widest">
-              [ TARGET LOCK: FT-MECHA-V1 ]
+            <div class="font-mono text-[10px] text-gundam-cyan mb-2 tracking-widest flex items-center gap-1.5">
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-gundam-red animate-pulse"></span>
+              [ TARGET LOCK: FT-FREEDOM-V1 ]
             </div>
 
-            <!-- Stylized Gundam Mecha Head Graphic (SVG Art with Glowing Eyes) -->
+            <!-- Intricate Stylized Gundam Mecha Head Graphic (High-Detail Vector Art) -->
             <div class="relative py-4 flex justify-center items-center">
-              <svg class="w-64 h-64 transition-transform duration-500 group-hover:scale-105" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- V-Fin Antenna (Yellow/Gold) -->
-                <polygon points="150,110 50,30 80,105 140,118" fill="#ffb800" stroke="#ffd000" stroke-width="2"/>
-                <polygon points="150,110 250,30 220,105 160,118" fill="#ffb800" stroke="#ffd000" stroke-width="2"/>
-                <!-- Center Red V-Fin Jewel -->
-                <polygon points="150,85 165,115 150,135 135,115" fill="#ff2d55" stroke="#ffffff" stroke-width="1.5"/>
+              
+              <!-- Outer Rotating Targeting Reticle -->
+              <div class="absolute w-72 h-72 rounded-full border border-dashed border-gundam-cyan/20 animate-reticle-rotate pointer-events-none"></div>
 
-                <!-- Helmet Crown & Armor Plates -->
-                <polygon points="110,120 190,120 180,150 120,150" fill="#1e293b" stroke="#00f0ff" stroke-width="2"/>
-                <polygon points="90,140 115,120 120,175 80,175" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
-                <polygon points="210,140 185,120 180,175 220,175" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
-                
-                <!-- Gundam Glowing Eyes (Dual Cyan Sensors) -->
-                <polygon points="118,155 142,157 138,168 114,166" fill="#00f0ff" class="animate-eye-pulse"/>
-                <polygon points="182,155 158,157 162,168 186,166" fill="#00f0ff" class="animate-eye-pulse"/>
+              <svg class="w-64 h-64 transition-transform duration-500 group-hover:scale-105" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Head Antenna / V-Fin (Gold Armor) -->
+                <polygon points="160,115 40,25 75,108 145,124" fill="#ffb800" stroke="#ffd000" stroke-width="2.5"/>
+                <polygon points="160,115 280,25 245,108 175,124" fill="#ffb800" stroke="#ffd000" stroke-width="2.5"/>
+                <polygon points="160,115 80,55 105,115 150,126" fill="#ffd700" opacity="0.8"/>
+                <polygon points="160,115 240,55 215,115 170,126" fill="#ffd700" opacity="0.8"/>
 
-                <!-- Face Mask Vents & Chin -->
-                <polygon points="135,172 165,172 160,195 140,195" fill="#334155" stroke="#475569" stroke-width="1"/>
-                <line x1="140" y1="178" x2="160" y2="178" stroke="#00f0ff" stroke-width="2"/>
-                <line x1="142" y1="184" x2="158" y2="184" stroke="#00f0ff" stroke-width="2"/>
+                <!-- Center Red V-Fin Jewel Sensor -->
+                <polygon points="160,82 178,118 160,140 142,118" fill="#ff2d55" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="160" cy="115" r="4" fill="#ffffff" opacity="0.8"/>
+
+                <!-- Helmet Crown & White/Slate Armor Plates -->
+                <polygon points="115,125 205,125 195,158 125,158" fill="#1e293b" stroke="#00f0ff" stroke-width="2"/>
+                <!-- Vulcan Gun Pods (Head) -->
+                <circle cx="112" cy="148" r="3.5" fill="#ffb800" stroke="#030712" stroke-width="1.5"/>
+                <circle cx="208" cy="148" r="3.5" fill="#ffb800" stroke="#030712" stroke-width="1.5"/>
+
+                <!-- Side Cheek Armor (Earpieces) -->
+                <polygon points="90,145 120,125 125,185 85,185" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                <polygon points="230,145 200,125 195,185 235,185" fill="#0f172a" stroke="#334155" stroke-width="2"/>
                 
-                <!-- Red Chin Piece -->
-                <polygon points="142,196 158,196 154,215 146,215" fill="#ff2d55" stroke="#ffffff" stroke-width="1"/>
+                <!-- Gundam Dual Glowing Eyes (Neon Cyan Sensors) -->
+                <polygon points="122,162 148,164 144,176 118,174" fill="#00f0ff" class="gundam-eye animate-eye-pulse"/>
+                <polygon points="198,162 172,164 176,176 202,174" fill="#00f0ff" class="gundam-eye animate-eye-pulse"/>
+
+                <!-- Face Plate Mask & Dual Air Intake Vents -->
+                <polygon points="140,180 180,180 174,208 146,208" fill="#334155" stroke="#475569" stroke-width="1.5"/>
+                <!-- Dual Vents -->
+                <line x1="148" y1="187" x2="172" y2="187" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="150" y1="194" x2="170" y2="194" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="152" y1="201" x2="168" y2="201" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/>
+                
+                <!-- Red Chin Armor Piece -->
+                <polygon points="148,209 172,209 167,230 153,230" fill="#ff2d55" stroke="#ffffff" stroke-width="1.5"/>
 
                 <!-- Neck & Collar Armor -->
-                <polygon points="110,210 190,210 210,250 90,250" fill="#0f172a" stroke="#00f0ff" stroke-width="2"/>
-                <!-- Chest Armor & Core -->
-                <polygon points="70,250 120,240 115,280 60,280" fill="#1e40af" stroke="#3b82f6" stroke-width="2"/>
-                <polygon points="230,250 180,240 185,280 240,280" fill="#1e40af" stroke="#3b82f6" stroke-width="2"/>
-                <polygon points="120,240 180,240 175,285 125,285" fill="#ff2d55" stroke="#ffffff" stroke-width="2"/>
-                <rect x="138" y="255" width="24" height="15" fill="#ffb800" stroke="#000000" stroke-width="1"/>
+                <polygon points="115,225 205,225 228,268 92,268" fill="#0f172a" stroke="#00f0ff" stroke-width="2"/>
+                
+                <!-- Chest Armor & Freedom Core Blue Plates -->
+                <polygon points="70,268 125,256 120,305 58,305" fill="#1e40af" stroke="#3b82f6" stroke-width="2"/>
+                <polygon points="250,268 195,256 200,305 262,305" fill="#1e40af" stroke="#3b82f6" stroke-width="2"/>
+                <!-- Central Red Cockpit Hatch Armor -->
+                <polygon points="125,256 195,256 190,310 130,310" fill="#ff2d55" stroke="#ffffff" stroke-width="2"/>
+                <!-- Cockpit Indicator Amber Lamp -->
+                <rect x="146" y="272" width="28" height="16" rx="2" fill="#ffb800" stroke="#030712" stroke-width="1.5"/>
+                <line x1="152" y1="280" x2="168" y2="280" stroke="#ffffff" stroke-width="1.5"/>
               </svg>
             </div>
 
-            <!-- Mecha Telemetry Info -->
+            <!-- Mecha Telemetry Bottom Bar -->
             <div class="pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[11px]">
               <span class="text-slate-400">PILOT: <strong class="text-white">FARID TASIM</strong></span>
               <span class="text-gundam-green flex items-center gap-1 font-bold">
-                <i class="fas fa-bolt text-[10px]"></i> GN-DRIVE: 100%
+                <i class="fas fa-check-circle text-[10px]"></i> SYSTEMS: NOMINAL
               </span>
             </div>
           </div>
@@ -361,25 +495,38 @@
       </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-16 px-6 border-t border-white/5 bg-mecha-900/60">
-      <div class="max-w-4xl mx-auto space-y-6">
+    <!-- Pilot Dossier / About Section -->
+    <section id="pilot" class="py-20 px-6 border-t border-white/5 bg-mecha-900/60">
+      <div class="max-w-4xl mx-auto space-y-8">
         
         <div class="flex items-center gap-2 font-mono text-xs text-gundam-cyan">
           <span>// 01</span>
           <span class="w-8 h-[1px] bg-gundam-cyan"></span>
-          <span data-i18n="about_title">TENTANG SAYA</span>
+          <span data-i18n="pilot_tag">PROFIL PILOT & DOSSIER</span>
         </div>
 
-        <div class="armor-card p-6 sm:p-8 space-y-4 relative">
+        <!-- Pilot Dossier Card -->
+        <div class="armor-card p-6 sm:p-8 space-y-6 relative">
           <div class="bracket-tl"></div>
           <div class="bracket-br"></div>
 
-          <h2 class="text-2xl font-mecha font-bold text-white tracking-wide" data-i18n="about_heading">
-            Eksplorasi Kod & Sistem Digital.
-          </h2>
+          <!-- Dossier Header -->
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <span class="text-[10px] font-mono text-gundam-red tracking-widest uppercase block">
+                DOSSIER // PILOT IDENTIFICATION
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-mecha font-bold text-white tracking-wide" data-i18n="about_heading">
+                Eksplorasi Kod & Sistem Digital.
+              </h2>
+            </div>
+            <div class="px-3 py-1 rounded bg-gundam-cyan/10 border border-gundam-cyan/30 text-gundam-cyan font-mono text-xs">
+              CALLSIGN: <strong>NAGA-01</strong>
+            </div>
+          </div>
 
-          <div class="text-sm sm:text-base text-slate-300 leading-relaxed space-y-3 font-normal" data-i18n="about_body">
+          <!-- Pilot Personal Bio (Natural, Humble, No Fake Expert Buzzwords) -->
+          <div class="text-sm sm:text-base text-slate-300 leading-relaxed space-y-4 font-normal" data-i18n="about_body">
             <p>
               Bermula daripada minat mendalam terhadap dunia komputer dan teknologi, saya seronok belajar membina perisian dan laman web dari bawah. Saya bukanlah pakar serba tahu, tetapi saya sentiasa bersemangat untuk mencuba, membaiki ralat, dan menyiapkan projek yang benar-benar boleh digunapakai.
             </p>
@@ -388,14 +535,54 @@
             </p>
           </div>
 
+          <!-- Technical Capabilities Focus (Natural Scope) -->
+          <div class="pt-2">
+            <h4 class="font-mono text-xs text-gundam-yellow uppercase tracking-wider mb-3" data-i18n="focus_title">
+              // BIDANG FOKUS & EKSPLORASI
+            </h4>
+            <div class="grid sm:grid-cols-2 gap-3 font-mono text-xs">
+              <div class="p-3 rounded bg-mecha-850/80 border border-white/10 flex items-start gap-2.5">
+                <i class="fas fa-layer-group text-gundam-cyan mt-0.5"></i>
+                <div>
+                  <strong class="text-white block" data-i18n="focus_1_title">Pembangunan Web & Antaramuka</strong>
+                  <span class="text-slate-400 text-[11px]" data-i18n="focus_1_desc">Aplikasi web moden, rekaan responsif, dan sistem borang interaktif.</span>
+                </div>
+              </div>
+              <div class="p-3 rounded bg-mecha-850/80 border border-white/10 flex items-start gap-2.5">
+                <i class="fas fa-database text-gundam-yellow mt-0.5"></i>
+                <div>
+                  <strong class="text-white block" data-i18n="focus_2_title">Portal Data & Pengurusan Rekod</strong>
+                  <span class="text-slate-400 text-[11px]" data-i18n="focus_2_desc">Penawanan data, pelaporan tersusun, dan operasi organisasi.</span>
+                </div>
+              </div>
+              <div class="p-3 rounded bg-mecha-850/80 border border-white/10 flex items-start gap-2.5">
+                <i class="fas fa-cloud text-gundam-green mt-0.5"></i>
+                <div>
+                  <strong class="text-white block" data-i18n="focus_3_title">Infrastruktur DNS & Edge</strong>
+                  <span class="text-slate-400 text-[11px]" data-i18n="focus_3_desc">Konfigurasi Cloudflare DNS, penghalaan e-mel kustom, dan keselamatan domain.</span>
+                </div>
+              </div>
+              <div class="p-3 rounded bg-mecha-850/80 border border-white/10 flex items-start gap-2.5">
+                <i class="fas fa-gears text-gundam-red mt-0.5"></i>
+                <div>
+                  <strong class="text-white block" data-i18n="focus_4_title">Automasi & Integrasi</strong>
+                  <span class="text-slate-400 text-[11px]" data-i18n="focus_4_desc">Skrip automasi tugasan, aliran data berpusat, dan penyelesaian praktikal.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Base Meta Info -->
           <div class="pt-4 border-t border-white/10 flex flex-wrap gap-6 font-mono text-xs text-slate-400">
             <div>
-              <span class="text-slate-500 block text-[10px] uppercase">LOKASI // BASE</span>
+              <span class="text-slate-500 block text-[10px] uppercase">PANGKALAN OPERASI // BASE</span>
               <span class="text-slate-200">Sabah, Malaysia 🇲🇾</span>
             </div>
             <div>
-              <span class="text-slate-500 block text-[10px] uppercase">STATUS OPERASI</span>
-              <span class="text-gundam-green">Sedia Berkolaborasi</span>
+              <span class="text-slate-500 block text-[10px] uppercase">STATUS KETERSEDIAAN</span>
+              <span class="text-gundam-green flex items-center gap-1 font-semibold">
+                <span class="w-1.5 h-1.5 rounded-full bg-gundam-green animate-pulse"></span> Sedia Berkolaborasi
+              </span>
             </div>
           </div>
         </div>
@@ -403,7 +590,7 @@
       </div>
     </section>
 
-    <!-- Projects Section (All 5 projects correctly structured) -->
+    <!-- Projects Section (Exact 5 Projects Structured Perfectly) -->
     <section id="projects" class="py-20 px-6 border-t border-white/5">
       <div class="max-w-5xl mx-auto space-y-10">
         
@@ -411,7 +598,7 @@
           <div class="flex items-center gap-2 font-mono text-xs text-gundam-cyan">
             <span>// 02</span>
             <span class="w-8 h-[1px] bg-gundam-cyan"></span>
-            <span data-i18n="projects_tag">ARKIB PROJEK</span>
+            <span data-i18n="projects_tag">ARKIB MISI PROJEK</span>
           </div>
           <h2 class="text-3xl font-mecha font-bold text-white mt-2" data-i18n="projects_heading">
             Senarai Projek Saya
@@ -421,14 +608,14 @@
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
 
           <!-- Project 1: Seksyen Penawanan Data (Active Live) -->
-          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative" onmouseenter="playBeep()">
+          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative project-card" onmouseenter="playBeep()">
             <div class="bracket-tl"></div>
             <div class="space-y-3">
               <div class="flex items-center justify-between font-mono text-[11px]">
-                <span class="text-gundam-cyan font-bold">[ PORTAL // SPD ]</span>
+                <span class="text-gundam-cyan font-bold">[ SORTIE 01 // DATA PORTAL ]</span>
                 <span class="px-2 py-0.5 rounded bg-gundam-green/20 text-gundam-green text-[10px] font-bold border border-gundam-green/40 flex items-center gap-1">
                   <span class="w-1.5 h-1.5 rounded-full bg-gundam-green animate-pulse"></span> LIVE
                 </span>
@@ -450,11 +637,11 @@
           </div>
 
           <!-- Project 2: Walimatul Urus — Hafiz & Wana (Active Live) -->
-          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative" onmouseenter="playBeep()">
+          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative project-card" onmouseenter="playBeep()">
             <div class="bracket-tl"></div>
             <div class="space-y-3">
               <div class="flex items-center justify-between font-mono text-[11px]">
-                <span class="text-gundam-yellow font-bold">[ MAJLIS // PERKAHWINAN ]</span>
+                <span class="text-gundam-yellow font-bold">[ SORTIE 02 // MAJLIS ]</span>
                 <span class="px-2 py-0.5 rounded bg-gundam-green/20 text-gundam-green text-[10px] font-bold border border-gundam-green/40 flex items-center gap-1">
                   <span class="w-1.5 h-1.5 rounded-full bg-gundam-green animate-pulse"></span> LIVE
                 </span>
@@ -476,11 +663,11 @@
           </div>
 
           <!-- Project 3: QuranConnect (Active Live) -->
-          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative" onmouseenter="playBeep()">
+          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative project-card" onmouseenter="playBeep()">
             <div class="bracket-tl"></div>
             <div class="space-y-3">
               <div class="flex items-center justify-between font-mono text-[11px]">
-                <span class="text-gundam-green font-bold">[ AL-QURAN // WEB APP ]</span>
+                <span class="text-gundam-green font-bold">[ SORTIE 03 // AL-QURAN ]</span>
                 <span class="px-2 py-0.5 rounded bg-gundam-green/20 text-gundam-green text-[10px] font-bold border border-gundam-green/40 flex items-center gap-1">
                   <span class="w-1.5 h-1.5 rounded-full bg-gundam-green animate-pulse"></span> LIVE
                 </span>
@@ -489,7 +676,7 @@
                 QuranConnect
               </h3>
               <p class="text-slate-300 text-sm leading-relaxed" data-i18n="p3_desc">
-                Aplikasi Al-Quran digital dalam talian dengan antaramuka kemas dan ringkas untuk pembacaan mudah di telefon pintar mahupun komputer.
+                Aplikasi Al-Quran digital dalam talian dengan antaramuka kemas dan pantas untuk pembacaan mudah di pelbagai peranti.
               </p>
             </div>
             <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
@@ -502,11 +689,11 @@
           </div>
 
           <!-- Project 4: Sabah Disaster Intelligence Portal (Closed - No Link) -->
-          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative opacity-85 hover:opacity-100" onmouseenter="playBeep()">
+          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative opacity-85 hover:opacity-100 project-card" onmouseenter="playBeep()">
             <div class="bracket-tl"></div>
             <div class="space-y-3">
               <div class="flex items-center justify-between font-mono text-[11px]">
-                <span class="text-slate-400 font-bold">[ BENCANA // SABAH ]</span>
+                <span class="text-slate-400 font-bold">[ SORTIE 04 // BENCANA ]</span>
                 <span class="px-2 py-0.5 rounded bg-gundam-red/20 text-gundam-red text-[10px] font-bold border border-gundam-red/40">
                   DITUTUP
                 </span>
@@ -515,23 +702,23 @@
                 Sabah Disaster Intelligence
               </h3>
               <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p4_desc">
-                Portal pemantauan pintar bencana negeri Sabah (banjir, amaran cuaca, situasi kecemasan) bagi membantu tindakan awal.
+                Portal pemantauan pintar bencana negeri Sabah (banjir, amaran cuaca, situasi kecemasan) bagi membantu tindakan awal komuniti.
               </p>
             </div>
             <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
               <span class="text-gundam-red text-[11px] font-bold" data-i18n="remark_closed">
                 ⚠️ Website telah ditutup
               </span>
-              <span class="text-slate-600 text-xs">ARCHIVED</span>
+              <span class="text-slate-600 text-xs font-mono">ARCHIVED</span>
             </div>
           </div>
 
           <!-- Project 5: LeanTrack (Closed - No Link) -->
-          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative opacity-85 hover:opacity-100" onmouseenter="playBeep()">
+          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative opacity-85 hover:opacity-100 project-card" onmouseenter="playBeep()">
             <div class="bracket-tl"></div>
             <div class="space-y-3">
               <div class="flex items-center justify-between font-mono text-[11px]">
-                <span class="text-slate-400 font-bold">[ DIET // PEMAKANAN ]</span>
+                <span class="text-slate-400 font-bold">[ SORTIE 05 // KESIHATAN ]</span>
                 <span class="px-2 py-0.5 rounded bg-gundam-red/20 text-gundam-red text-[10px] font-bold border border-gundam-red/40">
                   DITUTUP
                 </span>
@@ -547,7 +734,7 @@
               <span class="text-gundam-red text-[11px] font-bold" data-i18n="remark_closed">
                 ⚠️ Website telah ditutup
               </span>
-              <span class="text-slate-600 text-xs">ARCHIVED</span>
+              <span class="text-slate-600 text-xs font-mono">ARCHIVED</span>
             </div>
           </div>
 
@@ -556,7 +743,7 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact & Tactical Transmission Section -->
     <section id="contact" class="py-20 px-6 border-t border-white/5 bg-mecha-900/60">
       <div class="max-w-2xl mx-auto text-center space-y-6">
         
@@ -571,14 +758,16 @@
         </h2>
 
         <p class="text-slate-300 text-sm leading-relaxed" data-i18n="contact_desc">
-          Jika anda mempunyai cadangan projek, ingin bekerjasama, atau ada sebarang pertanyaan, sila hubungi terus melalui e-mel:
+          Jika anda mempunyai cadangan projek, ingin bekerjasama, atau ada sebarang pertanyaan, sila hubungi terus melalui saluran e-mel rasmi di bawah:
         </p>
 
-        <!-- Email Box -->
-        <div class="armor-card p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
-          <div class="flex items-center gap-2.5 text-slate-200 text-sm">
-            <i class="fas fa-envelope text-gundam-cyan"></i>
-            <span class="font-bold select-all">contact@faridtasim.dpdns.org</span>
+        <!-- Email Transmission Card -->
+        <div class="armor-card p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
+          <div class="flex items-center gap-3 text-slate-200 text-sm">
+            <div class="w-8 h-8 rounded bg-gundam-cyan/10 border border-gundam-cyan/30 flex items-center justify-center text-gundam-cyan">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <span class="font-bold select-all text-xs sm:text-sm">contact@faridtasim.dpdns.org</span>
           </div>
           <div class="flex items-center gap-2 w-full sm:w-auto">
             <button onclick="copyEmail()" onmouseenter="playBeep()" class="flex-1 sm:flex-initial px-4 py-2 bg-mecha-850 hover:bg-gundam-cyan hover:text-black border border-white/10 text-white rounded text-xs transition font-bold" data-i18n="btn_copy">
@@ -594,12 +783,12 @@
     </section>
   </main>
 
-  <!-- Clean Mecha Footer (GitHub Pages & Cloudflare tags removed) -->
+  <!-- Clean Mecha Footer (No GitHub Pages or Cloudflare text) -->
   <footer class="py-6 px-6 border-t border-white/5 bg-mecha-950 text-center font-mono text-[11px] text-slate-500 max-w-6xl mx-auto flex items-center justify-center">
-    <p>© 2026 FARID TASIM // GUNDAM-HUB BASE</p>
+    <p>© 2026 FARID TASIM // GUNDAM-HUB BASE // PILOT COCKPIT</p>
   </footer>
 
-  <!-- Scripts: YouTube API, Sound Synthesizer, i18n -->
+  <!-- Scripts: Audio Engine, YouTube API, SEED Mode, i18n -->
   <script>
     // 1. YouTube API Initialization & Autoplay (Guarantees NO PAUSE ICON appears)
     let player;
@@ -638,9 +827,10 @@
       const wrapper = document.getElementById('video-wrapper');
       // Only show video when it is actively PLAYING, completely eliminating the pause or buffering symbol!
       if (event.data === YT.PlayerState.PLAYING) {
-        if (videoOn) wrapper.style.opacity = "0.45";
+        if (videoOn) wrapper.style.opacity = "0.40";
       } else if (event.data === YT.PlayerState.PAUSED) {
-        // If it ever pauses, immediately play it again
+        // If it ever pauses, hide it and immediately resume
+        wrapper.style.opacity = "0";
         event.target.playVideo();
       } else if (event.data === YT.PlayerState.ENDED) {
         event.target.playVideo();
@@ -664,7 +854,7 @@
       const wrapper = document.getElementById('video-wrapper');
       const text = document.getElementById('video-status');
       if (videoOn) {
-        wrapper.style.opacity = "0.45";
+        wrapper.style.opacity = "0.40";
         text.textContent = "VIDEO BG: ON";
         if (player && typeof player.playVideo === 'function') player.playVideo();
       } else {
@@ -674,7 +864,7 @@
       playBeep();
     }
 
-    // 3. Mecha Sound Synthesizer (Web Audio API)
+    // 3. Mecha Audio Synthesizer (Web Audio API - Zero External Audio Files)
     let audioCtx = null;
     let sfxEnabled = true;
 
@@ -684,6 +874,7 @@
       }
     }
 
+    // High-tech UI Beep
     function playBeep() {
       if (!sfxEnabled) return;
       initAudio();
@@ -691,17 +882,18 @@
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.04);
         gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start();
-        osc.stop(audioCtx.currentTime + 0.05);
+        osc.stop(audioCtx.currentTime + 0.04);
       } catch(e) {}
     }
 
+    // Mecha Laser / Beam Saber Discharge
     function playLaser() {
       if (!sfxEnabled) return;
       initAudio();
@@ -709,17 +901,62 @@
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(1800, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.15);
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+        osc.frequency.setValueAtTime(1600, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(220, audioCtx.currentTime + 0.14);
+        gain.gain.setValueAtTime(0.07, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.14);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start();
-        osc.stop(audioCtx.currentTime + 0.15);
+        osc.stop(audioCtx.currentTime + 0.14);
       } catch(e) {}
     }
 
+    // Iconic Freedom Gundam Multi-Lock-On Chirp (pip-pip-pip-peeeen!)
+    function playLockSound() {
+      if (!sfxEnabled) return;
+      initAudio();
+      try {
+        const pitches = [1200, 1500, 1800, 2400];
+        pitches.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          const startTime = audioCtx.currentTime + (idx * 0.06);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.06, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.05);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.05);
+        });
+      } catch(e) {}
+    }
+
+    // SEED Factor Awakening Sound (Crystalline Resonance Chord)
+    function playSeedSound() {
+      if (!sfxEnabled) return;
+      initAudio();
+      try {
+        const chord = [528, 792, 1056, 1584];
+        chord.forEach(freq => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          osc.frequency.linearRampToValueAtTime(freq * 1.05, audioCtx.currentTime + 0.5);
+          gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.8);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.8);
+        });
+      } catch(e) {}
+    }
+
+    // SFX Sound Toggle
     function toggleAudio() {
       sfxEnabled = !sfxEnabled;
       const statusText = document.getElementById('audio-status');
@@ -734,7 +971,48 @@
       }
     }
 
-    // 4. Mouse Crosshairs Tracking
+    // 4. Interactive SEED Mode Toggle
+    let seedActive = false;
+    function toggleSeedMode() {
+      seedActive = !seedActive;
+      const body = document.body;
+      const statusText = document.getElementById('seed-status');
+      const flash = document.getElementById('seed-flash');
+
+      if (seedActive) {
+        body.classList.add('seed-active');
+        statusText.textContent = "SEED MODE: ON";
+        playSeedSound();
+
+        // Flash effect
+        flash.style.opacity = "0.7";
+        setTimeout(() => { flash.style.opacity = "0"; }, 350);
+
+        showToast("SEED FACTOR ACTIVATED // PILOT SYNCHRONIZATION 100%");
+      } else {
+        body.classList.remove('seed-active');
+        statusText.textContent = "SEED MODE: OFF";
+        playBeep();
+        showToast("STANDARD TACTICAL HUD RESTORED");
+      }
+    }
+
+    // Multi-Lock On Action
+    function triggerMultiLock() {
+      playLockSound();
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('ring-2', 'ring-gundam-red', 'scale-[1.02]');
+          setTimeout(() => {
+            card.classList.remove('ring-2', 'ring-gundam-red', 'scale-[1.02]');
+          }, 600);
+        }, index * 100);
+      });
+      showToast("MULTI-LOCK ON: 5 TARGETS ACQUIRED!");
+    }
+
+    // 5. Mouse Crosshairs Tracking
     const crosshair = document.getElementById('crosshair-hud');
     const dot = document.getElementById('crosshair-dot');
     window.addEventListener('mousemove', (e) => {
@@ -744,54 +1022,74 @@
       dot.style.top = `${e.clientY}px`;
     });
 
-    // 5. Language Switcher (BM / ENG)
+    // 6. Bilingual Support (BM / ENG)
     const i18nData = {
       bm: {
-        nav_about: "Tentang",
-        nav_projects: "Projek",
-        nav_contact: "Hubungi",
-        hero_sub: "// PENGKALAN OPERASI DIGITAL",
+        nav_pilot: "Profil Pilot",
+        nav_projects: "Misi Projek",
+        nav_contact: "Transmisi",
+        hero_sub: "// PENGKALAN OPERASI & SISTEM DIGITAL",
         hero_desc: "Hai, saya Farid Tasim. Saya membina portal data, sistem automasi, dan aplikasi laman web yang praktikal untuk kegunaan harian, organisasi, dan komuniti.",
         btn_explore: "TEROKAI PROJEK",
+        btn_lockon: "MULTI-LOCK ON",
         btn_copy_email: "SALIN E-MEL",
-        about_title: "TENTANG SAYA",
+        pilot_tag: "PROFIL PILOT & DOSSIER",
         about_heading: "Eksplorasi Kod & Sistem Digital.",
         about_body: `
           <p>Bermula daripada minat mendalam terhadap dunia komputer dan teknologi, saya seronok belajar membina perisian dan laman web dari bawah. Saya bukanlah pakar serba tahu, tetapi saya sentiasa bersemangat untuk mencuba, membaiki ralat, dan menyiapkan projek yang benar-benar boleh digunapakai.</p>
           <p>Daripada portal agensi rasmi untuk tugasan pengurusan data, sehinggalah ke sistem pemantauan bencana dan pelbagai alatan web lain — kepuasan saya adalah apabila sesuatu projek yang saya bangunkan memberi manfaat serta memudahkan urusan pengguna.</p>
         `,
-        projects_tag: "ARKIB PROJEK",
+        focus_title: "// BIDANG FOKUS & EKSPLORASI",
+        focus_1_title: "Pembangunan Web & Antaramuka",
+        focus_1_desc: "Aplikasi web moden, rekaan responsif, dan sistem borang interaktif.",
+        focus_2_title: "Portal Data & Pengurusan Rekod",
+        focus_2_desc: "Penawanan data, pelaporan tersusun, dan operasi organisasi.",
+        focus_3_title: "Infrastruktur DNS & Edge",
+        focus_3_desc: "Konfigurasi Cloudflare DNS, penghalaan e-mel kustom, dan keselamatan domain.",
+        focus_4_title: "Automasi & Integrasi",
+        focus_4_desc: "Skrip automasi tugasan, aliran data berpusat, dan penyelesaian praktikal.",
+        projects_tag: "ARKIB MISI PROJEK",
         projects_heading: "Senarai Projek Saya",
         projects_desc: "Status projek, portal rasmi, dan sistem yang pernah dibangunkan.",
         p1_desc: "Portal rasmi bagi pengurusan, penawanan maklumat data, dan rekod aktiviti organisasi secara tersusun dan berpusat.",
         p2_desc: "Laman web jemputan majlis perkahwinan digital yang dilengkapi pengesahan kehadiran (RSVP), panduan lokasi GPS, atur cara, dan ucapan tetamu.",
-        p3_desc: "Aplikasi Al-Quran digital dalam talian dengan antaramuka kemas dan ringkas untuk pembacaan mudah di telefon pintar mahupun komputer.",
-        p4_desc: "Portal pemantauan pintar bencana negeri Sabah (banjir, amaran cuaca, situasi kecemasan) bagi membantu tindakan awal.",
+        p3_desc: "Aplikasi Al-Quran digital dalam talian dengan antaramuka kemas dan pantas untuk pembacaan mudah di pelbagai peranti.",
+        p4_desc: "Portal pemantauan pintar bencana negeri Sabah (banjir, amaran cuaca, situasi kecemasan) bagi membantu tindakan awal komuniti.",
         p5_desc: "Platform rekod pemakanan dan pengurusan diet untuk pengguna dalam memantau pengambilan kalori serta matlamat kesihatan.",
         btn_visit: "Buka Laman",
         remark_closed: "⚠️ Website telah ditutup",
         contact_tag: "// TRANSMISI KOMUNIKASI",
         contact_heading: "Hubungi Saya",
-        contact_desc: "Jika anda mempunyai cadangan projek, ingin bekerjasama, atau ada sebarang pertanyaan, sila hubungi terus melalui e-mel:",
+        contact_desc: "Jika anda mempunyai cadangan projek, ingin bekerjasama, atau ada sebarang pertanyaan, sila hubungi terus melalui saluran e-mel rasmi di bawah:",
         btn_copy: "Salin E-mel",
         btn_send: "Hantar Mesej",
         toast: "DISALIN KE PAPAN KERATAN!"
       },
       en: {
-        nav_about: "About",
-        nav_projects: "Projects",
-        nav_contact: "Contact",
-        hero_sub: "// DIGITAL COMMAND BASE",
-        hero_desc: "Hi, I'm Farid Tasim. I build practical web portals, automation tools, and applications designed for real-world utility and community workflows.",
+        nav_pilot: "Pilot Profile",
+        nav_projects: "Sortie Missions",
+        nav_contact: "Transmission",
+        hero_sub: "// DIGITAL OPERATIONS & COMMAND BASE",
+        hero_desc: "Hi, I'm Farid Tasim. I build practical web portals, automation tools, and applications designed for real-world utility, organizations, and communities.",
         btn_explore: "EXPLORE PROJECTS",
+        btn_lockon: "MULTI-LOCK ON",
         btn_copy_email: "COPY EMAIL",
-        about_title: "ABOUT ME",
+        pilot_tag: "PILOT DOSSIER // PROFILE",
         about_heading: "Exploring Code & Digital Systems.",
         about_body: `
           <p>Driven by genuine curiosity in technology, I enjoy learning and building software and web applications from the ground up. I don't claim to know everything, but I am dedicated to learning, fixing errors, and delivering functional solutions that actually help.</p>
-          <p>From official data capture portals to disaster monitoring systems and digital tools — what brings me the greatest satisfaction is knowing that something I built solves a real problem.</p>
+          <p>From official data capture portals to disaster monitoring systems and digital tools — what brings me the greatest satisfaction is knowing that something I built solves a real problem and aids everyday operations.</p>
         `,
-        projects_tag: "PROJECT ARCHIVE",
+        focus_title: "// CORE EXPLORATION & CAPABILITIES",
+        focus_1_title: "Web Apps & Modern Interfaces",
+        focus_1_desc: "Modern web tools, responsive glassmorphic UI, and interactive form workflows.",
+        focus_2_title: "Data Portals & Record Management",
+        focus_2_desc: "Data capture systems, structured reporting, and centralized organizational suites.",
+        focus_3_title: "DNS & Edge Infrastructure",
+        focus_3_desc: "Cloudflare DNS configuration, custom email routing, and SSL edge security.",
+        focus_4_title: "Automation & Integration",
+        focus_4_desc: "Task automation scripts, centralized data flow, and practical problem-solving.",
+        projects_tag: "MISSION SORTIE ARCHIVE",
         projects_heading: "My Project History",
         projects_desc: "Status of official portals, applications, and tools I have developed.",
         p1_desc: "Official agency portal for centralizing organizational data capture, operations, and activity governance.",
@@ -803,7 +1101,7 @@
         remark_closed: "⚠️ Website has been closed",
         contact_tag: "// COMM TRANSMISSION",
         contact_heading: "Get In Touch",
-        contact_desc: "If you have project ideas, collaboration requests, or any inquiries, feel free to reach out via email:",
+        contact_desc: "If you have project ideas, collaboration requests, or any inquiries, feel free to reach out via official email transmission below:",
         btn_copy: "Copy Email",
         btn_send: "Send Message",
         toast: "COPIED TO CLIPBOARD!"
@@ -839,7 +1137,7 @@
       });
     }
 
-    // 6. Live Time Clock
+    // 7. Live Sabah Tactical Chrono (MYT Time)
     function updateClock() {
       const el = document.getElementById('live-time');
       if (!el) return;
@@ -854,21 +1152,25 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // 7. Copy Email
+    // 8. Copy Email Toast Notification
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      toastText.textContent = msg || i18nData[currentLang].toast;
+      
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3200);
+    }
+
     function copyEmail() {
       playLaser();
       const email = 'contact@faridtasim.dpdns.org';
       navigator.clipboard.writeText(email).then(() => {
-        const toast = document.getElementById('toast');
-        const toastText = document.getElementById('toast-text');
-        toastText.textContent = i18nData[currentLang].toast;
-        
-        toast.classList.remove('translate-y-24', 'opacity-0');
-        toast.classList.add('translate-y-0', 'opacity-100');
-        setTimeout(() => {
-          toast.classList.remove('translate-y-0', 'opacity-100');
-          toast.classList.add('translate-y-24', 'opacity-0');
-        }, 3000);
+        showToast(i18nData[currentLang].toast);
       });
     }
   </script>
