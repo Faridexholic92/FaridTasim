@@ -15,6 +15,9 @@
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
     tailwind.config = {
@@ -127,6 +130,28 @@
       z-index: 1000;
       box-shadow: 0 0 8px #ff2d55;
     }
+
+    /* Video Player Styling: Scaled up to hide any YouTube overlays or edges */
+    #video-wrapper {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -30;
+      opacity: 0; /* Hidden until video is actively PLAYING, completely eliminating the pause icon! */
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #gundam-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 56.25vw; /* 16:9 ratio */
+      min-height: 100vh;
+      min-width: 177.77vh;
+      transform: translate(-50%, -50%) scale(1.35); /* Scale up to push any UI controls completely off screen */
+      pointer-events: none;
+    }
   </style>
 </head>
 
@@ -136,16 +161,9 @@
   <div id="crosshair-hud" class="hidden md:block"></div>
   <div id="crosshair-dot" class="hidden md:block"></div>
 
-  <!-- Background Video: Freedom Gundam (InRXhsZniZg) Loop -->
-  <div class="fixed inset-0 overflow-hidden pointer-events-none -z-30 opacity-45 transition-opacity duration-700" id="video-wrapper">
-    <iframe 
-      id="gundam-video"
-      class="w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-      src="https://www.youtube-nocookie.com/embed/InRXhsZniZg?autoplay=1&mute=1&controls=0&loop=1&playlist=InRXhsZniZg&playsinline=1&rel=0&showinfo=0&disablekb=1&modestbranding=1" 
-      frameborder="0" 
-      allow="autoplay; encrypted-media" 
-      allowfullscreen>
-    </iframe>
+  <!-- Background Video: Freedom Gundam (InRXhsZniZg) Seamless Loop (No Pause Symbol) -->
+  <div id="video-wrapper">
+    <div id="gundam-video"></div>
   </div>
 
   <!-- HUD Grid & Vignette Overlay -->
@@ -581,9 +599,82 @@
     <p>© 2026 FARID TASIM // GUNDAM-HUB BASE</p>
   </footer>
 
-  <!-- Scripts: Sound Synthesizer, Video Toggle, i18n -->
+  <!-- Scripts: YouTube API, Sound Synthesizer, i18n -->
   <script>
-    // 1. Mecha Sound Synthesizer (Web Audio API)
+    // 1. YouTube API Initialization & Autoplay (Guarantees NO PAUSE ICON appears)
+    let player;
+    let videoOn = true;
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('gundam-video', {
+        videoId: 'InRXhsZniZg',
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          loop: 1,
+          playlist: 'InRXhsZniZg',
+          playsinline: 1,
+          rel: 0,
+          showinfo: 0,
+          disablekb: 1,
+          modestbranding: 1,
+          iv_load_policy: 3,
+          fs: 0
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      event.target.mute();
+      event.target.playVideo();
+    }
+
+    function onPlayerStateChange(event) {
+      const wrapper = document.getElementById('video-wrapper');
+      // Only show video when it is actively PLAYING, completely eliminating the pause or buffering symbol!
+      if (event.data === YT.PlayerState.PLAYING) {
+        if (videoOn) wrapper.style.opacity = "0.45";
+      } else if (event.data === YT.PlayerState.PAUSED) {
+        // If it ever pauses, immediately play it again
+        event.target.playVideo();
+      } else if (event.data === YT.PlayerState.ENDED) {
+        event.target.playVideo();
+      }
+    }
+
+    // Force play on first user interaction in case browser blocked initial autoplay
+    function ensurePlay() {
+      if (player && typeof player.playVideo === 'function') {
+        player.mute();
+        player.playVideo();
+      }
+    }
+    document.addEventListener('click', ensurePlay, { once: true });
+    document.addEventListener('touchstart', ensurePlay, { once: true });
+    document.addEventListener('scroll', ensurePlay, { once: true });
+
+    // 2. Video Background Toggle
+    function toggleVideo() {
+      videoOn = !videoOn;
+      const wrapper = document.getElementById('video-wrapper');
+      const text = document.getElementById('video-status');
+      if (videoOn) {
+        wrapper.style.opacity = "0.45";
+        text.textContent = "VIDEO BG: ON";
+        if (player && typeof player.playVideo === 'function') player.playVideo();
+      } else {
+        wrapper.style.opacity = "0";
+        text.textContent = "VIDEO BG: OFF";
+      }
+      playBeep();
+    }
+
+    // 3. Mecha Sound Synthesizer (Web Audio API)
     let audioCtx = null;
     let sfxEnabled = true;
 
@@ -643,23 +734,7 @@
       }
     }
 
-    // 2. Video Background Toggle
-    let videoOn = true;
-    function toggleVideo() {
-      videoOn = !videoOn;
-      const wrapper = document.getElementById('video-wrapper');
-      const text = document.getElementById('video-status');
-      if (videoOn) {
-        wrapper.style.opacity = "0.45";
-        text.textContent = "VIDEO BG: ON";
-      } else {
-        wrapper.style.opacity = "0";
-        text.textContent = "VIDEO BG: OFF";
-      }
-      playBeep();
-    }
-
-    // 3. Mouse Crosshairs Tracking
+    // 4. Mouse Crosshairs Tracking
     const crosshair = document.getElementById('crosshair-hud');
     const dot = document.getElementById('crosshair-dot');
     window.addEventListener('mousemove', (e) => {
@@ -669,7 +744,7 @@
       dot.style.top = `${e.clientY}px`;
     });
 
-    // 4. Language Switcher (BM / ENG)
+    // 5. Language Switcher (BM / ENG)
     const i18nData = {
       bm: {
         nav_about: "Tentang",
@@ -764,7 +839,7 @@
       });
     }
 
-    // 5. Live Time Clock
+    // 6. Live Time Clock
     function updateClock() {
       const el = document.getElementById('live-time');
       if (!el) return;
@@ -779,7 +854,7 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // 6. Copy Email
+    // 7. Copy Email
     function copyEmail() {
       playLaser();
       const email = 'contact@faridtasim.dpdns.org';
