@@ -45,7 +45,6 @@
           },
           animation: {
             'radar-spin': 'radarSpin 4s linear infinite',
-            'laser-flash': 'laserFlash 2s ease-in-out infinite',
             'eye-pulse': 'eyePulse 2.5s ease-in-out infinite',
           },
           keyframes: {
@@ -74,8 +73,8 @@
     .bg-hud-grid {
       background-size: 32px 32px;
       background-image: 
-        linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+        linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
     }
 
     /* Armor Plate Angular Cut */
@@ -128,15 +127,6 @@
       z-index: 1000;
       box-shadow: 0 0 8px #ff2d55;
     }
-
-    /* Laser Space Canvas */
-    #laser-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      pointer-events: none;
-      z-index: -5;
-    }
   </style>
 </head>
 
@@ -146,22 +136,19 @@
   <div id="crosshair-hud" class="hidden md:block"></div>
   <div id="crosshair-dot" class="hidden md:block"></div>
 
-  <!-- Background Video: Gundam Space Battle (Muted Loop) -->
-  <div class="fixed inset-0 overflow-hidden pointer-events-none -z-30 opacity-40 transition-opacity duration-700" id="video-wrapper">
+  <!-- Background Video: Freedom Gundam (InRXhsZniZg) Loop -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none -z-30 opacity-45 transition-opacity duration-700" id="video-wrapper">
     <iframe 
       id="gundam-video"
       class="w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-      src="https://www.youtube-nocookie.com/embed/9L7MbKX7b9o?autoplay=1&mute=1&controls=0&loop=1&playlist=9L7MbKX7b9o&playsinline=1&rel=0&showinfo=0&disablekb=1&modestbranding=1" 
+      src="https://www.youtube-nocookie.com/embed/InRXhsZniZg?autoplay=1&mute=1&controls=0&loop=1&playlist=InRXhsZniZg&playsinline=1&rel=0&showinfo=0&disablekb=1&modestbranding=1" 
       frameborder="0" 
       allow="autoplay; encrypted-media" 
       allowfullscreen>
     </iframe>
   </div>
 
-  <!-- Space Particle Canvas (Laser Beams clashing) -->
-  <canvas id="laser-canvas"></canvas>
-
-  <!-- HUD Grid & Vignette Darkener -->
+  <!-- HUD Grid & Vignette Overlay -->
   <div class="fixed inset-0 bg-hud-grid pointer-events-none -z-20"></div>
   <div class="fixed inset-0 bg-gradient-to-b from-mecha-950/80 via-mecha-950/70 to-mecha-950 pointer-events-none -z-10"></div>
 
@@ -174,7 +161,7 @@
   <!-- Top Tactical Status Bar -->
   <div class="bg-mecha-950/95 border-b border-mecha-border py-1.5 px-6 text-[11px] font-mono text-slate-400 flex items-center justify-between z-50 relative">
     <div class="flex items-center gap-3">
-      <span class="text-gundam-cyan font-bold tracking-widest">[ GUNDAM HUB // UNIT: RX-FARID-01 ]</span>
+      <span class="text-gundam-cyan font-bold tracking-widest">[ GUNDAM HUB // UNIT: FREEDOM-01 ]</span>
       <span class="hidden sm:inline text-slate-600">|</span>
       <span class="hidden sm:inline text-slate-400">STATUS: COMBAT READY</span>
     </div>
@@ -316,18 +303,16 @@
                 <!-- Center Red V-Fin Jewel -->
                 <polygon points="150,85 165,115 150,135 135,115" fill="#ff2d55" stroke="#ffffff" stroke-width="1.5"/>
 
-                <!-- Helmet Crown & Armor Plates (White & Gunmetal) -->
+                <!-- Helmet Crown & Armor Plates -->
                 <polygon points="110,120 190,120 180,150 120,150" fill="#1e293b" stroke="#00f0ff" stroke-width="2"/>
                 <polygon points="90,140 115,120 120,175 80,175" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
                 <polygon points="210,140 185,120 180,175 220,175" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
                 
                 <!-- Gundam Glowing Eyes (Dual Cyan Sensors) -->
-                <!-- Left Eye -->
                 <polygon points="118,155 142,157 138,168 114,166" fill="#00f0ff" class="animate-eye-pulse"/>
-                <!-- Right Eye -->
                 <polygon points="182,155 158,157 162,168 186,166" fill="#00f0ff" class="animate-eye-pulse"/>
 
-                <!-- Face Mask Vents & Chin (White & Crimson Red) -->
+                <!-- Face Mask Vents & Chin -->
                 <polygon points="135,172 165,172 160,195 140,195" fill="#334155" stroke="#475569" stroke-width="1"/>
                 <line x1="140" y1="178" x2="160" y2="178" stroke="#00f0ff" stroke-width="2"/>
                 <line x1="142" y1="184" x2="158" y2="184" stroke="#00f0ff" stroke-width="2"/>
@@ -337,7 +322,7 @@
 
                 <!-- Neck & Collar Armor -->
                 <polygon points="110,210 190,210 210,250 90,250" fill="#0f172a" stroke="#00f0ff" stroke-width="2"/>
-                <!-- Chest Armor & Core (Blue & Yellow Exhausts) -->
+                <!-- Chest Armor & Core -->
                 <polygon points="70,250 120,240 115,280 60,280" fill="#1e40af" stroke="#3b82f6" stroke-width="2"/>
                 <polygon points="230,250 180,240 185,280 240,280" fill="#1e40af" stroke="#3b82f6" stroke-width="2"/>
                 <polygon points="120,240 180,240 175,285 125,285" fill="#ff2d55" stroke="#ffffff" stroke-width="2"/>
@@ -358,7 +343,7 @@
       </div>
     </section>
 
-    <!-- About Section (Natural & Honest) -->
+    <!-- About Section -->
     <section id="about" class="py-16 px-6 border-t border-white/5 bg-mecha-900/60">
       <div class="max-w-4xl mx-auto space-y-6">
         
@@ -400,7 +385,7 @@
       </div>
     </section>
 
-    <!-- Projects Section (Updated: 3 Projects only) -->
+    <!-- Projects Section (All 5 projects correctly structured) -->
     <section id="projects" class="py-20 px-6 border-t border-white/5">
       <div class="max-w-5xl mx-auto space-y-10">
         
@@ -418,7 +403,7 @@
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <!-- Project 1: Seksyen Penawanan Data (Active Live) -->
           <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative" onmouseenter="playBeep()">
@@ -440,14 +425,67 @@
             <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
               <span class="text-slate-400 text-[11px]">myspd.qzz.io</span>
               <a href="https://www.myspd.qzz.io/" target="_blank" onclick="playLaser()" class="px-3.5 py-1.5 bg-gundam-cyan text-black hover:bg-cyan-300 rounded transition flex items-center gap-1.5 font-bold shadow-[0_0_15px_rgba(0,240,255,0.4)]">
-                <span data-i18n="btn_visit">Buka Portal</span>
+                <span data-i18n="btn_visit">Buka Laman</span>
                 <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </div>
           </div>
 
-          <!-- Project 2: Sabah Disaster Intelligence Portal (Closed) -->
+          <!-- Project 2: Walimatul Urus — Hafiz & Wana (Active Live) -->
+          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative" onmouseenter="playBeep()">
+            <div class="bracket-tl"></div>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between font-mono text-[11px]">
+                <span class="text-gundam-yellow font-bold">[ MAJLIS // PERKAHWINAN ]</span>
+                <span class="px-2 py-0.5 rounded bg-gundam-green/20 text-gundam-green text-[10px] font-bold border border-gundam-green/40 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-gundam-green animate-pulse"></span> LIVE
+                </span>
+              </div>
+              <h3 class="text-xl font-mecha font-bold text-white group-hover:text-gundam-yellow transition">
+                Walimatul Urus — Hafiz & Wana
+              </h3>
+              <p class="text-slate-300 text-sm leading-relaxed" data-i18n="p2_desc">
+                Laman web jemputan majlis perkahwinan digital yang dilengkapi pengesahan kehadiran (RSVP), panduan lokasi GPS, atur cara, dan ucapan tetamu.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
+              <span class="text-slate-400 text-[11px]">hafizgotwana.vercel.app</span>
+              <a href="https://hafizgotwana.vercel.app/" target="_blank" onclick="playLaser()" class="px-3.5 py-1.5 bg-gundam-yellow text-black hover:bg-amber-300 rounded transition flex items-center gap-1.5 font-bold shadow-[0_0_15px_rgba(255,184,0,0.4)]">
+                <span data-i18n="btn_visit">Buka Laman</span>
+                <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 3: QuranConnect (Active Live) -->
+          <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative" onmouseenter="playBeep()">
+            <div class="bracket-tl"></div>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between font-mono text-[11px]">
+                <span class="text-gundam-green font-bold">[ AL-QURAN // WEB APP ]</span>
+                <span class="px-2 py-0.5 rounded bg-gundam-green/20 text-gundam-green text-[10px] font-bold border border-gundam-green/40 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-gundam-green animate-pulse"></span> LIVE
+                </span>
+              </div>
+              <h3 class="text-xl font-mecha font-bold text-white group-hover:text-gundam-green transition">
+                QuranConnect
+              </h3>
+              <p class="text-slate-300 text-sm leading-relaxed" data-i18n="p3_desc">
+                Aplikasi Al-Quran digital dalam talian dengan antaramuka kemas dan ringkas untuk pembacaan mudah di telefon pintar mahupun komputer.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
+              <span class="text-slate-400 text-[11px]">quran-connect-seven.vercel.app</span>
+              <a href="https://quran-connect-seven.vercel.app/" target="_blank" onclick="playLaser()" class="px-3.5 py-1.5 bg-gundam-green text-black hover:bg-emerald-300 rounded transition flex items-center gap-1.5 font-bold shadow-[0_0_15px_rgba(0,255,136,0.4)]">
+                <span data-i18n="btn_visit">Buka Laman</span>
+                <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 4: Sabah Disaster Intelligence Portal (Closed - No Link) -->
           <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative opacity-85 hover:opacity-100" onmouseenter="playBeep()">
+            <div class="bracket-tl"></div>
             <div class="space-y-3">
               <div class="flex items-center justify-between font-mono text-[11px]">
                 <span class="text-slate-400 font-bold">[ BENCANA // SABAH ]</span>
@@ -458,7 +496,7 @@
               <h3 class="text-xl font-mecha font-bold text-slate-200">
                 Sabah Disaster Intelligence
               </h3>
-              <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p2_desc">
+              <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p4_desc">
                 Portal pemantauan pintar bencana negeri Sabah (banjir, amaran cuaca, situasi kecemasan) bagi membantu tindakan awal.
               </p>
             </div>
@@ -470,8 +508,9 @@
             </div>
           </div>
 
-          <!-- Project 3: LeanTrack (Closed) -->
+          <!-- Project 5: LeanTrack (Closed - No Link) -->
           <div class="armor-card p-6 flex flex-col justify-between space-y-5 group relative opacity-85 hover:opacity-100" onmouseenter="playBeep()">
+            <div class="bracket-tl"></div>
             <div class="space-y-3">
               <div class="flex items-center justify-between font-mono text-[11px]">
                 <span class="text-slate-400 font-bold">[ DIET // PEMAKANAN ]</span>
@@ -482,7 +521,7 @@
               <h3 class="text-xl font-mecha font-bold text-slate-200">
                 LeanTrack
               </h3>
-              <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p3_desc">
+              <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p5_desc">
                 Platform rekod pemakanan dan pengurusan diet untuk pengguna dalam memantau pengambilan kalori serta matlamat kesihatan.
               </p>
             </div>
@@ -537,12 +576,12 @@
     </section>
   </main>
 
-  <!-- Clean Mecha Footer (Removed GitHub Pages & Cloudflare tags) -->
+  <!-- Clean Mecha Footer (GitHub Pages & Cloudflare tags removed) -->
   <footer class="py-6 px-6 border-t border-white/5 bg-mecha-950 text-center font-mono text-[11px] text-slate-500 max-w-6xl mx-auto flex items-center justify-center">
     <p>© 2026 FARID TASIM // GUNDAM-HUB BASE</p>
   </footer>
 
-  <!-- Scripts: Sound Synthesizer, Battle Canvas, Video Toggle, i18n -->
+  <!-- Scripts: Sound Synthesizer, Video Toggle, i18n -->
   <script>
     // 1. Mecha Sound Synthesizer (Web Audio API)
     let audioCtx = null;
@@ -611,7 +650,7 @@
       const wrapper = document.getElementById('video-wrapper');
       const text = document.getElementById('video-status');
       if (videoOn) {
-        wrapper.style.opacity = "0.4";
+        wrapper.style.opacity = "0.45";
         text.textContent = "VIDEO BG: ON";
       } else {
         wrapper.style.opacity = "0";
@@ -630,62 +669,7 @@
       dot.style.top = `${e.clientY}px`;
     });
 
-    // 4. Space Battle Beam Canvas Animation
-    const canvas = document.getElementById('laser-canvas');
-    const ctx = canvas.getContext('2d');
-    let lasers = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    class Laser {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = -50;
-        this.length = 40 + Math.random() * 80;
-        this.speed = 10 + Math.random() * 18;
-        this.color = Math.random() > 0.5 ? '#00f0ff' : '#ff2d55';
-        this.angle = 0.5 + (Math.random() * 0.4);
-      }
-      update() {
-        this.y += this.speed;
-        this.x += this.speed * Math.cos(this.angle) * 0.3;
-        if (this.y > canvas.height + 100) this.reset();
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x - Math.cos(this.angle) * 15, this.y - this.length);
-        ctx.strokeStyle = this.color;
-        ctx.lineWidth = 2;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color;
-        ctx.stroke();
-      }
-    }
-
-    for (let i = 0; i < 18; i++) {
-      lasers.push(new Laser());
-    }
-
-    function animateBattle() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      lasers.forEach(laser => {
-        laser.update();
-        laser.draw();
-      });
-      requestAnimationFrame(animateBattle);
-    }
-    animateBattle();
-
-    // 5. Language Switcher (BM / ENG)
+    // 4. Language Switcher (BM / ENG)
     const i18nData = {
       bm: {
         nav_about: "Tentang",
@@ -705,9 +689,11 @@
         projects_heading: "Senarai Projek Saya",
         projects_desc: "Status projek, portal rasmi, dan sistem yang pernah dibangunkan.",
         p1_desc: "Portal rasmi bagi pengurusan, penawanan maklumat data, dan rekod aktiviti organisasi secara tersusun dan berpusat.",
-        p2_desc: "Portal pemantauan pintar bencana negeri Sabah (banjir, amaran cuaca, situasi kecemasan) bagi membantu tindakan awal.",
-        p3_desc: "Platform rekod pemakanan dan pengurusan diet untuk pengguna dalam memantau pengambilan kalori serta matlamat kesihatan.",
-        btn_visit: "Buka Portal",
+        p2_desc: "Laman web jemputan majlis perkahwinan digital yang dilengkapi pengesahan kehadiran (RSVP), panduan lokasi GPS, atur cara, dan ucapan tetamu.",
+        p3_desc: "Aplikasi Al-Quran digital dalam talian dengan antaramuka kemas dan ringkas untuk pembacaan mudah di telefon pintar mahupun komputer.",
+        p4_desc: "Portal pemantauan pintar bencana negeri Sabah (banjir, amaran cuaca, situasi kecemasan) bagi membantu tindakan awal.",
+        p5_desc: "Platform rekod pemakanan dan pengurusan diet untuk pengguna dalam memantau pengambilan kalori serta matlamat kesihatan.",
+        btn_visit: "Buka Laman",
         remark_closed: "⚠️ Website telah ditutup",
         contact_tag: "// TRANSMISI KOMUNIKASI",
         contact_heading: "Hubungi Saya",
@@ -734,9 +720,11 @@
         projects_heading: "My Project History",
         projects_desc: "Status of official portals, applications, and tools I have developed.",
         p1_desc: "Official agency portal for centralizing organizational data capture, operations, and activity governance.",
-        p2_desc: "Smart disaster intelligence portal for Sabah state (monitoring floods, meteorological alerts, and emergency response).",
-        p3_desc: "Nutrition and dietary tracker platform for users to monitor caloric intake and wellness progress.",
-        btn_visit: "Open Portal",
+        p2_desc: "Interactive wedding invitation website featuring guest RSVP confirmation, GPS location navigation, event schedules, and guest wishes.",
+        p3_desc: "Clean, accessible digital Quran reader designed for seamless study across mobile devices and desktop browsers.",
+        p4_desc: "Smart disaster intelligence portal for Sabah state (monitoring floods, meteorological alerts, and emergency response).",
+        p5_desc: "Nutrition and dietary tracker platform for users to monitor caloric intake and wellness progress.",
+        btn_visit: "Visit Live",
         remark_closed: "⚠️ Website has been closed",
         contact_tag: "// COMM TRANSMISSION",
         contact_heading: "Get In Touch",
@@ -776,7 +764,7 @@
       });
     }
 
-    // 6. Live Time Clock
+    // 5. Live Time Clock
     function updateClock() {
       const el = document.getElementById('live-time');
       if (!el) return;
@@ -791,7 +779,7 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // 7. Copy Email
+    // 6. Copy Email
     function copyEmail() {
       playLaser();
       const email = 'contact@faridtasim.dpdns.org';
