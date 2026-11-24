@@ -667,39 +667,16 @@
           <span class="underline underline-offset-4 decoration-white/70" data-i18n="visitor_card_title">Statistik pelawat</span> <span data-i18n="visitor_card_period">bagi tempoh 30 hari yang lepas</span>
         </h3>
 
-        <!-- 3 Metric Boxes Matching Reference Image -->
-        <div class="grid grid-cols-3 gap-2.5 sm:gap-4 max-w-xl">
-          
-          <!-- Box 1: Pengguna -->
+        <!-- Single Metric Box Matching Reference Style: Jumlah Pelawat Sahaja -->
+        <div class="w-full max-w-[220px] sm:max-w-[240px]">
           <div class="rounded-xl overflow-hidden border border-blue-600 bg-white shadow-md flex flex-col">
-            <div class="bg-blue-600 py-2 sm:py-2.5 px-1 text-center text-white font-semibold text-xs sm:text-base tracking-wide" data-i18n="stat_users">
-              Pengguna
+            <div class="bg-blue-600 py-2 sm:py-2.5 px-3 text-center text-white font-semibold text-xs sm:text-base tracking-wide" data-i18n="stat_visitors">
+              Jumlah Pelawat
             </div>
-            <div class="py-3 sm:py-4 px-1 text-center text-slate-900 font-bold text-base sm:text-2xl md:text-3xl font-sans tracking-tight" id="val-users">
-              5476
-            </div>
-          </div>
-
-          <!-- Box 2: Paparan -->
-          <div class="rounded-xl overflow-hidden border border-blue-600 bg-white shadow-md flex flex-col">
-            <div class="bg-blue-600 py-2 sm:py-2.5 px-1 text-center text-white font-semibold text-xs sm:text-base tracking-wide" data-i18n="stat_views">
-              Paparan
-            </div>
-            <div class="py-3 sm:py-4 px-1 text-center text-slate-900 font-bold text-base sm:text-2xl md:text-3xl font-sans tracking-tight" id="val-views">
+            <div class="py-3.5 sm:py-5 px-3 text-center text-slate-900 font-bold text-xl sm:text-3xl font-sans tracking-tight" id="val-visitors">
               16821
             </div>
           </div>
-
-          <!-- Box 3: Sesi -->
-          <div class="rounded-xl overflow-hidden border border-blue-600 bg-white shadow-md flex flex-col">
-            <div class="bg-blue-600 py-2 sm:py-2.5 px-1 text-center text-white font-semibold text-xs sm:text-base tracking-wide" data-i18n="stat_sessions">
-              Sesi
-            </div>
-            <div class="py-3 sm:py-4 px-1 text-center text-slate-900 font-bold text-base sm:text-2xl md:text-3xl font-sans tracking-tight" id="val-sessions">
-              7567
-            </div>
-          </div>
-
         </div>
 
       </div>
@@ -779,41 +756,18 @@
       }
     });
 
-    // Visitor Stats Counter (Matching User Reference)
+    // Visitor Stats Counter (Single Metric: Jumlah Pelawat)
     function initVisitorStats() {
-      const BASE_USERS = 5476;
-      const BASE_VIEWS = 16821;
-      const BASE_SESSIONS = 7567;
+      const BASE_VISITORS = 16821;
 
       let localViews = parseInt(localStorage.getItem('ft_views') || '0', 10);
-      let localSessions = parseInt(localStorage.getItem('ft_sessions') || '0', 10);
-      let localUsers = parseInt(localStorage.getItem('ft_users') || '0', 10);
-
-      // Increment views count
       localViews += 1;
       localStorage.setItem('ft_views', localViews);
 
-      // New session check
-      if (!sessionStorage.getItem('ft_session_active')) {
-        sessionStorage.setItem('ft_session_active', '1');
-        localSessions += 1;
-        localStorage.setItem('ft_sessions', localSessions);
+      const elVisitors = document.getElementById('val-visitors');
+      if (elVisitors) {
+        elVisitors.textContent = (BASE_VISITORS + localViews).toString();
       }
-
-      // New unique browser check
-      if (!localStorage.getItem('ft_user_known')) {
-        localStorage.setItem('ft_user_known', '1');
-        localUsers += 1;
-        localStorage.setItem('ft_users', localUsers);
-      }
-
-      const elUsers = document.getElementById('val-users');
-      const elViews = document.getElementById('val-views');
-      const elSessions = document.getElementById('val-sessions');
-
-      if (elUsers) elUsers.textContent = (BASE_USERS + localUsers).toString();
-      if (elViews) elViews.textContent = (BASE_VIEWS + localViews).toString();
-      if (elSessions) elSessions.textContent = (BASE_SESSIONS + localSessions).toString();
     }
     initVisitorStats();
 
@@ -871,9 +825,7 @@
         visitor_heading: "Statistik Pelawat",
         visitor_card_title: "Statistik pelawat",
         visitor_card_period: "bagi tempoh 30 hari yang lepas",
-        stat_users: "Pengguna",
-        stat_views: "Paparan",
-        stat_sessions: "Sesi",
+        stat_visitors: "Jumlah Pelawat",
         contact_tag: "HUBUNGI SAYA",
         contact_heading: "Ada idea projek atau ingin bekerjasama?",
         contact_desc: "Saya sentiasa terbuka untuk membincangkan peluang pembangunan web, sistem maklumat, atau sebarang kolaborasi bermanfaat.",
@@ -934,9 +886,7 @@
         visitor_heading: "Visitor Statistics",
         visitor_card_title: "Visitor statistics",
         visitor_card_period: "for the past 30 days",
-        stat_users: "Users",
-        stat_views: "Views",
-        stat_sessions: "Sessions",
+        stat_visitors: "Total Visitors",
         contact_tag: "GET IN TOUCH",
         contact_heading: "Have a project idea or want to collaborate?",
         contact_desc: "I am always open to discussing new opportunities, web applications, or meaningful tech collaborations.",
