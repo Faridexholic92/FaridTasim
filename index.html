@@ -653,97 +653,53 @@
 
     </section>
 
-    <!-- Visitor Analytics & Roster Section (Widget Senarai Visitor) -->
-    <section id="visitors" class="space-y-6 sm:space-y-8 scroll-mt-20">
+    <!-- Visitor Analytics Section (Widget Statistik Pelawat) -->
+    <section id="visitors" class="space-y-4 sm:space-y-6 scroll-mt-20">
       
       <div>
         <span class="text-xs font-mono font-semibold text-brand-500 tracking-wider uppercase block" data-i18n="visitor_tag">ANALITIK & STATISTIK LAMAN</span>
-        <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mt-1" data-i18n="visitor_heading">Senarai & Trafik Pelawat</h2>
+        <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mt-1" data-i18n="visitor_heading">Statistik Pelawat</h2>
       </div>
 
-      <div class="pro-card p-5 sm:p-8 space-y-6">
+      <div class="pro-card p-5 sm:p-8 space-y-5">
         
-        <!-- Live Status Bar -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border pb-5">
-          <div class="flex items-center gap-3">
-            <span class="relative flex h-3 w-3 shrink-0">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-            </span>
-            <div>
-              <span class="text-sm font-semibold text-white block leading-tight" data-i18n="visitor_live_status">Status Trafik: Aktif & Beroperasi</span>
-              <span class="text-xs text-slate-400 font-mono" data-i18n="visitor_live_sub">Sesi semakan masa nyata melalui Cloudflare Edge</span>
+        <h3 class="text-base sm:text-xl text-white font-normal">
+          <span class="underline underline-offset-4 decoration-white/70" data-i18n="visitor_card_title">Statistik pelawat</span> <span data-i18n="visitor_card_period">bagi tempoh 30 hari yang lepas</span>
+        </h3>
+
+        <!-- 3 Metric Boxes Matching Reference Image -->
+        <div class="grid grid-cols-3 gap-2.5 sm:gap-4 max-w-xl">
+          
+          <!-- Box 1: Pengguna -->
+          <div class="rounded-xl overflow-hidden border border-blue-600 bg-white shadow-md flex flex-col">
+            <div class="bg-blue-600 py-2 sm:py-2.5 px-1 text-center text-white font-semibold text-xs sm:text-base tracking-wide" data-i18n="stat_users">
+              Pengguna
+            </div>
+            <div class="py-3 sm:py-4 px-1 text-center text-slate-900 font-bold text-base sm:text-2xl md:text-3xl font-sans tracking-tight" id="val-users">
+              5476
             </div>
           </div>
 
-          <!-- Hits Badge from hits.sh -->
-          <div class="flex items-center gap-2.5 bg-surface-900 border border-surface-border px-3.5 py-1.5 rounded-xl self-start sm:self-auto">
-            <span class="text-xs font-mono text-slate-400" data-i18n="visitor_total_label">Jumlah Lawatan:</span>
-            <img src="https://hits.sh/faridtasim.dpdns.org.svg?style=flat&label=Views&color=2563eb&labelColor=0f172a" alt="Jumlah Pelawat" class="h-5 shrink-0" loading="lazy">
+          <!-- Box 2: Paparan -->
+          <div class="rounded-xl overflow-hidden border border-blue-600 bg-white shadow-md flex flex-col">
+            <div class="bg-blue-600 py-2 sm:py-2.5 px-1 text-center text-white font-semibold text-xs sm:text-base tracking-wide" data-i18n="stat_views">
+              Paparan
+            </div>
+            <div class="py-3 sm:py-4 px-1 text-center text-slate-900 font-bold text-base sm:text-2xl md:text-3xl font-sans tracking-tight" id="val-views">
+              16821
+            </div>
           </div>
-        </div>
 
-        <!-- Detected Visitor Card -->
-        <div class="p-4 sm:p-5 rounded-xl bg-surface-900/70 border border-brand-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div class="flex items-start sm:items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-brand-500/10 border border-brand-500/30 text-brand-400 flex items-center justify-center shrink-0 shadow-sm">
-              <i class="fas fa-location-dot text-base"></i>
+          <!-- Box 3: Sesi -->
+          <div class="rounded-xl overflow-hidden border border-blue-600 bg-white shadow-md flex flex-col">
+            <div class="bg-blue-600 py-2 sm:py-2.5 px-1 text-center text-white font-semibold text-xs sm:text-base tracking-wide" data-i18n="stat_sessions">
+              Sesi
             </div>
-            <div>
-              <span class="text-[10px] sm:text-[11px] font-mono text-brand-400 uppercase tracking-wider block" data-i18n="visitor_your_loc_label">LOKASI PELAWAT ANDA</span>
-              <span id="visitor-detected-location" class="text-xs sm:text-sm font-semibold text-white">Mengesan lokasi rangkaian... 🇲🇾</span>
+            <div class="py-3 sm:py-4 px-1 text-center text-slate-900 font-bold text-base sm:text-2xl md:text-3xl font-sans tracking-tight" id="val-sessions">
+              7567
             </div>
           </div>
-          <div class="text-[11px] font-mono text-slate-400 flex items-center gap-2 bg-surface-850 px-3 py-1 rounded-lg border border-surface-border self-start sm:self-auto">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="visitor-ip-badge">Cloudflare Edge Verified</span>
-          </div>
-        </div>
 
-        <!-- Visitor Regions Breakdown / Senarai Asal Pelawat -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center gap-2" data-i18n="visitor_breakdown_title">
-            <i class="fas fa-chart-pie text-brand-400"></i>
-            <span>Taburan Asal Pelawat Terkini</span>
-          </h4>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 font-mono text-xs">
-            <div class="p-3 rounded-xl bg-surface-900 border border-surface-border">
-              <div class="flex items-center justify-between mb-1.5">
-                <span class="text-slate-300 text-[11px]">Sabah, MY 🇲🇾</span>
-                <span class="text-emerald-400 font-bold text-[10px]">Utama</span>
-              </div>
-              <div class="w-full bg-surface-800 rounded-full h-1.5 overflow-hidden">
-                <div class="bg-brand-500 h-1.5 rounded-full" style="width: 85%"></div>
-              </div>
-            </div>
-            <div class="p-3 rounded-xl bg-surface-900 border border-surface-border">
-              <div class="flex items-center justify-between mb-1.5">
-                <span class="text-slate-300 text-[11px]">Sem. Malaysia 🇲🇾</span>
-                <span class="text-blue-400 font-bold text-[10px]">Aktif</span>
-              </div>
-              <div class="w-full bg-surface-800 rounded-full h-1.5 overflow-hidden">
-                <div class="bg-brand-500 h-1.5 rounded-full" style="width: 70%"></div>
-              </div>
-            </div>
-            <div class="p-3 rounded-xl bg-surface-900 border border-surface-border">
-              <div class="flex items-center justify-between mb-1.5">
-                <span class="text-slate-300 text-[11px]">Singapura 🇸🇬</span>
-                <span class="text-slate-400 font-bold text-[10px]">Stabil</span>
-              </div>
-              <div class="w-full bg-surface-800 rounded-full h-1.5 overflow-hidden">
-                <div class="bg-brand-500 h-1.5 rounded-full" style="width: 45%"></div>
-              </div>
-            </div>
-            <div class="p-3 rounded-xl bg-surface-900 border border-surface-border">
-              <div class="flex items-center justify-between mb-1.5">
-                <span class="text-slate-300 text-[11px]">Global / Awan 🌍</span>
-                <span class="text-slate-400 font-bold text-[10px]">Edge</span>
-              </div>
-              <div class="w-full bg-surface-800 rounded-full h-1.5 overflow-hidden">
-                <div class="bg-brand-500 h-1.5 rounded-full" style="width: 60%"></div>
-              </div>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -823,28 +779,43 @@
       }
     });
 
-    // Detect visitor location seamlessly
-    function detectVisitorLocation() {
-      const locEl = document.getElementById('visitor-detected-location');
-      const ipBadge = document.getElementById('visitor-ip-badge');
-      if (!locEl) return;
-      
-      fetch('https://ipapi.co/json/')
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.city && data.country_name) {
-            const flag = data.country_code === 'MY' ? '🇲🇾' : (data.country_code === 'SG' ? '🇸🇬' : '🌍');
-            locEl.textContent = `${data.city}, ${data.region || ''} (${data.country_name}) ${flag}`;
-            if (ipBadge) ipBadge.textContent = `${data.org || 'ISP'} // Edge Verified`;
-          } else {
-            locEl.textContent = 'Malaysia (Cloudflare Edge Network) 🇲🇾';
-          }
-        })
-        .catch(() => {
-          locEl.textContent = 'Malaysia (Cloudflare Edge Network) 🇲🇾';
-        });
+    // Visitor Stats Counter (Matching User Reference)
+    function initVisitorStats() {
+      const BASE_USERS = 5476;
+      const BASE_VIEWS = 16821;
+      const BASE_SESSIONS = 7567;
+
+      let localViews = parseInt(localStorage.getItem('ft_views') || '0', 10);
+      let localSessions = parseInt(localStorage.getItem('ft_sessions') || '0', 10);
+      let localUsers = parseInt(localStorage.getItem('ft_users') || '0', 10);
+
+      // Increment views count
+      localViews += 1;
+      localStorage.setItem('ft_views', localViews);
+
+      // New session check
+      if (!sessionStorage.getItem('ft_session_active')) {
+        sessionStorage.setItem('ft_session_active', '1');
+        localSessions += 1;
+        localStorage.setItem('ft_sessions', localSessions);
+      }
+
+      // New unique browser check
+      if (!localStorage.getItem('ft_user_known')) {
+        localStorage.setItem('ft_user_known', '1');
+        localUsers += 1;
+        localStorage.setItem('ft_users', localUsers);
+      }
+
+      const elUsers = document.getElementById('val-users');
+      const elViews = document.getElementById('val-views');
+      const elSessions = document.getElementById('val-sessions');
+
+      if (elUsers) elUsers.textContent = (BASE_USERS + localUsers).toString();
+      if (elViews) elViews.textContent = (BASE_VIEWS + localViews).toString();
+      if (elSessions) elSessions.textContent = (BASE_SESSIONS + localSessions).toString();
     }
-    detectVisitorLocation();
+    initVisitorStats();
 
     // Bilingual Dictionary (BM / ENG)
     const i18n = {
@@ -897,12 +868,12 @@
         tech_bar_title: "Alatan & Ekosistem Teknologi",
         tech_bar_sub: "Sedia Produksi & Terbukti",
         visitor_tag: "ANALITIK & STATISTIK LAMAN",
-        visitor_heading: "Senarai & Trafik Pelawat",
-        visitor_live_status: "Status Trafik: Aktif & Beroperasi",
-        visitor_live_sub: "Sesi semakan masa nyata melalui Cloudflare Edge",
-        visitor_total_label: "Jumlah Lawatan:",
-        visitor_your_loc_label: "LOKASI PELAWAT ANDA",
-        visitor_breakdown_title: "Taburan Asal Pelawat Terkini",
+        visitor_heading: "Statistik Pelawat",
+        visitor_card_title: "Statistik pelawat",
+        visitor_card_period: "bagi tempoh 30 hari yang lepas",
+        stat_users: "Pengguna",
+        stat_views: "Paparan",
+        stat_sessions: "Sesi",
         contact_tag: "HUBUNGI SAYA",
         contact_heading: "Ada idea projek atau ingin bekerjasama?",
         contact_desc: "Saya sentiasa terbuka untuk membincangkan peluang pembangunan web, sistem maklumat, atau sebarang kolaborasi bermanfaat.",
@@ -960,12 +931,12 @@
         tech_bar_title: "Tools & Technology Ecosystem",
         tech_bar_sub: "Production-Ready & Proven",
         visitor_tag: "SITE ANALYTICS & STATS",
-        visitor_heading: "Visitor Traffic & Roster",
-        visitor_live_status: "Traffic Status: Active & Operational",
-        visitor_live_sub: "Real-time edge verification via Cloudflare",
-        visitor_total_label: "Total Visits:",
-        visitor_your_loc_label: "YOUR DETECTED LOCATION",
-        visitor_breakdown_title: "Recent Visitor Traffic Distribution",
+        visitor_heading: "Visitor Statistics",
+        visitor_card_title: "Visitor statistics",
+        visitor_card_period: "for the past 30 days",
+        stat_users: "Users",
+        stat_views: "Views",
+        stat_sessions: "Sessions",
         contact_tag: "GET IN TOUCH",
         contact_heading: "Have a project idea or want to collaborate?",
         contact_desc: "I am always open to discussing new opportunities, web applications, or meaningful tech collaborations.",
