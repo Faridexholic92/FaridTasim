@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://faridtasim.dpdns.org/sitemap.xml
