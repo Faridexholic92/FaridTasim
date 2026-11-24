@@ -653,36 +653,6 @@
 
     </section>
 
-    <!-- Visitor Analytics Section (Widget Statistik Pelawat) -->
-    <section id="visitors" class="space-y-4 sm:space-y-6 scroll-mt-20">
-      
-      <div>
-        <span class="text-xs font-mono font-semibold text-brand-500 tracking-wider uppercase block" data-i18n="visitor_tag">ANALITIK & STATISTIK LAMAN</span>
-        <h2 class="text-2xl sm:text-3xl font-display font-bold text-white mt-1" data-i18n="visitor_heading">Statistik Pelawat</h2>
-      </div>
-
-      <div class="pro-card p-5 sm:p-8 space-y-5">
-        
-        <h3 class="text-base sm:text-xl text-white font-normal">
-          <span class="underline underline-offset-4 decoration-white/70" data-i18n="visitor_card_title">Statistik pelawat</span> <span data-i18n="visitor_card_period">bagi tempoh 30 hari yang lepas</span>
-        </h3>
-
-        <!-- Single Metric Box Matching Reference Style: Jumlah Pelawat Sahaja -->
-        <div class="w-full max-w-[220px] sm:max-w-[240px]">
-          <div class="rounded-xl overflow-hidden border border-blue-600 bg-white shadow-md flex flex-col">
-            <div class="bg-blue-600 py-2 sm:py-2.5 px-3 text-center text-white font-semibold text-xs sm:text-base tracking-wide" data-i18n="stat_visitors">
-              Jumlah Pelawat
-            </div>
-            <div class="py-3.5 sm:py-5 px-3 text-center text-slate-900 font-bold text-xl sm:text-3xl font-sans tracking-tight" id="val-visitors">
-              16821
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
     <!-- Contact Section -->
     <section id="contact" class="space-y-6 sm:space-y-8 scroll-mt-20">
       
@@ -720,9 +690,36 @@
 
   </main>
 
-  <!-- Clean Professional Footer -->
-  <footer class="border-t border-surface-border py-8 px-4 sm:px-6 text-center text-xs text-slate-500 font-mono">
-    <p class="max-w-5xl mx-auto">© 2026 Farid Tasim. <span data-i18n="footer_rights">Hak cipta terpelihara.</span></p>
+  <!-- Clean Professional Footer with Compact Visitor Badge -->
+  <footer class="border-t border-surface-border py-10 px-4 sm:px-6 text-center text-xs text-slate-500 font-mono">
+    <div class="max-w-5xl mx-auto space-y-6">
+      
+      <!-- Sleek Bottom Visitor Badge (Kecik & Cantik Macam Website Lain) -->
+      <div id="visitors" class="inline-flex flex-col items-center gap-2.5 scroll-mt-20">
+        <div class="text-[11px] text-slate-400 font-sans flex items-center justify-center gap-1.5 flex-wrap">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+          <span class="underline underline-offset-4 decoration-slate-600" data-i18n="visitor_card_title">Statistik pelawat</span>
+          <span data-i18n="visitor_card_period">bagi tempoh 30 hari yang lepas</span>
+        </div>
+        
+        <!-- Sleek Dual-Tone Pill Badge -->
+        <div class="inline-flex items-center rounded-lg overflow-hidden border border-blue-500/60 shadow-md shadow-blue-600/10 hover:border-blue-400 transition group cursor-default">
+          <div class="bg-blue-600 text-white font-semibold text-xs px-3 py-1.5 flex items-center gap-1.5" data-i18n="stat_visitors">
+            <i class="fas fa-chart-simple text-[10px] group-hover:scale-110 transition"></i>
+            <span>Jumlah Pelawat</span>
+          </div>
+          <div class="bg-white text-slate-900 font-bold font-mono text-xs sm:text-sm px-3.5 py-1.5 flex items-center justify-center min-w-[70px]" id="val-visitors">
+            16821
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <p class="pt-3 text-slate-500 text-xs border-t border-surface-border/40 max-w-xs mx-auto">
+        © 2026 Farid Tasim. <span data-i18n="footer_rights">Hak cipta terpelihara.</span>
+      </p>
+
+    </div>
   </footer>
 
   <!-- Scripts: i18n, Mobile Menu & Utilities -->
