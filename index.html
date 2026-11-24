@@ -694,23 +694,17 @@
   <footer class="border-t border-surface-border py-10 px-4 sm:px-6 text-center text-xs text-slate-500 font-mono">
     <div class="max-w-5xl mx-auto space-y-6">
       
-      <!-- Sleek Bottom Visitor Badge (Kecik & Cantik Macam Website Lain) -->
-      <div id="visitors" class="inline-flex flex-col items-center gap-2.5 scroll-mt-20">
+      <!-- Sleek Bottom Visitor Badge (Real-Time Live Counter) -->
+      <div id="visitors" class="inline-flex flex-col items-center gap-2 scroll-mt-20">
         <div class="text-[11px] text-slate-400 font-sans flex items-center justify-center gap-1.5 flex-wrap">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
           <span class="underline underline-offset-4 decoration-slate-600" data-i18n="visitor_card_title">Statistik pelawat</span>
-          <span data-i18n="visitor_card_period">bagi tempoh 30 hari yang lepas</span>
+          <span data-i18n="visitor_card_period">secara langsung (live)</span>
         </div>
         
-        <!-- Sleek Dual-Tone Pill Badge -->
-        <div class="inline-flex items-center rounded-lg overflow-hidden border border-blue-500/60 shadow-md shadow-blue-600/10 hover:border-blue-400 transition group cursor-default">
-          <div class="bg-blue-600 text-white font-semibold text-xs px-3 py-1.5 flex items-center gap-1.5" data-i18n="stat_visitors">
-            <i class="fas fa-chart-simple text-[10px] group-hover:scale-110 transition"></i>
-            <span>Jumlah Pelawat</span>
-          </div>
-          <div class="bg-white text-slate-900 font-bold font-mono text-xs sm:text-sm px-3.5 py-1.5 flex items-center justify-center min-w-[70px]" id="val-visitors">
-            16821
-          </div>
+        <!-- Live Real Hits Badge (Flat-Square: Blue Label, Crisp White Count) -->
+        <div class="inline-flex items-center rounded-lg overflow-hidden border border-blue-500/50 shadow-md shadow-blue-600/10 hover:border-blue-400 transition group">
+          <img id="visitor-badge-img" src="https://hits.sh/faridtasim.dpdns.org.svg?style=flat-square&label=Jumlah%20Pelawat&labelColor=2563eb&color=ffffff" alt="Statistik Jumlah Pelawat" class="h-5 sm:h-5 block" loading="eager">
         </div>
       </div>
 
@@ -752,21 +746,6 @@
         closeMobileMenu();
       }
     });
-
-    // Visitor Stats Counter (Single Metric: Jumlah Pelawat)
-    function initVisitorStats() {
-      const BASE_VISITORS = 16821;
-
-      let localViews = parseInt(localStorage.getItem('ft_views') || '0', 10);
-      localViews += 1;
-      localStorage.setItem('ft_views', localViews);
-
-      const elVisitors = document.getElementById('val-visitors');
-      if (elVisitors) {
-        elVisitors.textContent = (BASE_VISITORS + localViews).toString();
-      }
-    }
-    initVisitorStats();
 
     // Bilingual Dictionary (BM / ENG)
     const i18n = {
@@ -821,8 +800,7 @@
         visitor_tag: "ANALITIK & STATISTIK LAMAN",
         visitor_heading: "Statistik Pelawat",
         visitor_card_title: "Statistik pelawat",
-        visitor_card_period: "bagi tempoh 30 hari yang lepas",
-        stat_visitors: "Jumlah Pelawat",
+        visitor_card_period: "secara langsung (live)",
         contact_tag: "HUBUNGI SAYA",
         contact_heading: "Ada idea projek atau ingin bekerjasama?",
         contact_desc: "Saya sentiasa terbuka untuk membincangkan peluang pembangunan web, sistem maklumat, atau sebarang kolaborasi bermanfaat.",
@@ -882,8 +860,7 @@
         visitor_tag: "SITE ANALYTICS & STATS",
         visitor_heading: "Visitor Statistics",
         visitor_card_title: "Visitor statistics",
-        visitor_card_period: "for the past 30 days",
-        stat_visitors: "Total Visitors",
+        visitor_card_period: "in real-time (live)",
         contact_tag: "GET IN TOUCH",
         contact_heading: "Have a project idea or want to collaborate?",
         contact_desc: "I am always open to discussing new opportunities, web applications, or meaningful tech collaborations.",
@@ -908,6 +885,15 @@
       } else {
         btnEn.className = "px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-semibold transition bg-brand-600 text-white shadow-sm";
         btnBm.className = "px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-semibold transition text-slate-400 hover:text-white";
+      }
+
+      const badgeImg = document.getElementById('visitor-badge-img');
+      if (badgeImg) {
+        if (lang === 'bm') {
+          badgeImg.src = "https://hits.sh/faridtasim.dpdns.org.svg?style=flat-square&label=Jumlah%20Pelawat&labelColor=2563eb&color=ffffff";
+        } else {
+          badgeImg.src = "https://hits.sh/faridtasim.dpdns.org.svg?style=flat-square&label=Total%20Visitors&labelColor=2563eb&color=ffffff";
+        }
       }
 
       document.querySelectorAll('[data-i18n]').forEach(el => {
